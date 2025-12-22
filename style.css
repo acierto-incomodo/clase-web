@@ -152,3 +152,11 @@ h3 { margin-top: 0; }
     font-size: 1.5rem;
     color: var(--accent-color);
 }
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+}
