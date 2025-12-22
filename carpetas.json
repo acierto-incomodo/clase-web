@@ -1,41 +1,191 @@
 {
-    "asignaturas": {
-        "filosofia": {
-            "ebaluacion1": null,
-            "ebaluacion2": null,
-            "ebaluacion3": null
+  "asignaturas": {
+    "filosofia": {
+      "eba1": {
+        "antzinako-filosofia": {
+          "platon": null,
+          "aristoteles": null
         },
-        "mate": {
-            "examenes": null,
-            "ebaluacion1": {
-                "8-Gaia": {
-                    "teoria": null,
-                    "ejercicios": null
-                },
-                "9-Gaia": {
-                    "teoria": null,
-                    "ejercicios": null
-                },
-                "10-Gaia": {
-                    "teoria": null,
-                    "ejercicios": null
-                },
-                "11-Gaia": {
-                    "teoria": null,
-                    "ejercicios": null
-                }
-            },
-            "ebaluacion2": {
-                "12-Gaia": {
-                    "teoria": null,
-                    "ejercicios": null
-                },
-                "13-Gaia": {
-                    "teoria": null,
-                    "ejercicios": null
-                }
-            },
-            "ebaluacion3": null
+        "erdi-aroko-filosofia": {
+          "agustin": null,
+          "tomas": null
+        },
+        "ariketak": null,
+        "teoria": null
+      },
+      "eba2": {
+        "aro-modernoa": {
+          "descartes": null
+        },
+        "ilustrazioa": {
+          "kant": null
+        },
+        "ariketak": null,
+        "teoria": null
+      },
+      "eba3": {
+        "ariketak": null,
+        "teoria": null
+      },
+      "bideoak": null
+    },
+    "mate": {
+      "examenes": null,
+      "eba1": {
+        "8-Gaia": {
+          "teoria": null,
+          "ejercicios": null,
+          "correcciones": null
+        },
+        "9-Gaia": {
+          "teoria": null,
+          "ejercicios": null,
+          "correcciones": null
+        },
+        "10-Gaia": {
+          "teoria": null,
+          "ejercicios": null,
+          "correcciones": null
+        },
+        "11-Gaia": {
+          "teoria": null,
+          "ejercicios": null,
+          "correcciones": null
         }
+      },
+      "eba2": {
+        "12-Gaia": {
+          "teoria": null,
+          "ejercicios": null,
+          "correcciones": null
+        },
+        "13-Gaia": {
+          "teoria": null,
+          "ejercicios": null,
+          "correcciones": null
+        }
+      },
+      "eba3": null
+    },
+    "tutoretza": null,
+    "mekanika": {
+      "eba1": {
+        "autocad": {
+          "ariketak": null,
+          "azterketak": null
+        }
+      },
+      "eba2": {
+        "tinkercad": {
+          "ariketak": null,
+          "azterketak": null
+        }
+      },
+      "eba3": null
+    },
+    "ingelesa": {
+      "eba1": {
+        "vocabulary": {
+          "unit1": null,
+          "unit2": null
+        },
+        "grammar": {
+          "unit1": null,
+          "unit2": null,
+          "unit3": null
+        }
+      },
+      "eba2": {
+        "vocabulary": {
+          "unit3": null
+        },
+        "grammar": null
+      },
+      "eba3": null
+    },
+    "gaztelera": {
+      "eba1": {
+        "literatura": {
+          "antonio-machado": null
+        }
+      },
+      "eba2": {
+        "literatura": {
+          "casa-de-bernarda-alba": null
+        }
+      },
+      "eba3": {
+        "literatura": {
+          "nada-carmen-laforet": null
+        }
+      },
+      "gramatica": null,
+      "redaccion": null
+    },
+    "euskera": {
+      "gramatika": null,
+      "sinonimoak": null
+    },
+    "historia": {
+      "eba1": {
+        "testu-iruzkinak": null,
+        "teoria": null,
+        "ariketak": null,
+        "eskemak": null
+      },
+      "eba2": {
+        "testu-iruzkinak": null,
+        "teoria": null,
+        "ariketak": null,
+        "eskemak": null
+      },
+      "eba3": {
+        "testu-iruzkinak": null,
+        "teoria": null,
+        "ariketak": null,
+        "eskemak": null
+      }
+    },
+    "fisika": {
+      "eba1": {
+        "grabitazioa": null,
+        "hhs": null,
+        "uhs": null,
+        "teoria": null,
+        "formulak": null
+      },
+      "eba2": {
+        "argiaren-errefrakzioa": null,
+        "eremu-elektrikoa": null,
+        "eremu-magnetikoa": null,
+        "teoria": null,
+        "formulak": null
+      },
+      "eba3": {
+        "indukzio-elektromagnetikoa": null,
+        "optika-geometrikoa": null,
+        "efektua-fotoelektrikoa": null,
+        "teoria": null,
+        "formulak": null
+      }
+    },
+    "marrazketa-teknikoa-II": {
+      "eba1": {
+        "teoria": null,
+        "ariketak": null
+      },
+      "eba2": {
+        "teoria": null,
+        "ariketak": null
+      },
+      "eba3": {
+        "teoria": null,
+        "ariketak": null
+      }
     }
+  },
+  "akademia": {
+    "matematika": null,
+    "fisika": null
+  }
 }
