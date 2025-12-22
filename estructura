@@ -1,0 +1,14 @@
+/mi-moodle-personal
+│   index.html (Página principal con las asignaturas)
+│   style.css (El diseño oscuro para todo el sitio)
+│   script.js (Funciones de navegación)
+└───/asignaturas
+    ├───filosofia
+    │       index.html
+    │       lectura1.pdf
+    │       imagen-mapa.jpg
+    ├───matematika
+    │       index.html
+    │       ejercicios.pdf
+    └───fisika
+            index.html

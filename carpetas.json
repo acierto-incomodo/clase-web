@@ -1,0 +1,41 @@
+{
+    "asignaturas": {
+        "filosofia": {
+            "ebaluacion1": null,
+            "ebaluacion2": null,
+            "ebaluacion3": null
+        },
+        "mate": {
+            "examenes": null,
+            "ebaluacion1": {
+                "8-Gaia": {
+                    "teoria": null,
+                    "ejercicios": null
+                },
+                "9-Gaia": {
+                    "teoria": null,
+                    "ejercicios": null
+                },
+                "10-Gaia": {
+                    "teoria": null,
+                    "ejercicios": null
+                },
+                "11-Gaia": {
+                    "teoria": null,
+                    "ejercicios": null
+                }
+            },
+            "ebaluacion2": {
+                "12-Gaia": {
+                    "teoria": null,
+                    "ejercicios": null
+                },
+                "13-Gaia": {
+                    "teoria": null,
+                    "ejercicios": null
+                }
+            },
+            "ebaluacion3": null
+        }
+    }
+}
