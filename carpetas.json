@@ -29,8 +29,13 @@
       },
       "bideoak": null
     },
-    "mate": {
-      "examenes": null,
+    "matematika": {
+      "azterketak": {
+        "eba1": null,
+        "eba2": null,
+        "eba3": null,
+        "ebau": null
+      },
       "eba1": {
         "8-Gaia": {
           "teoria": null,
