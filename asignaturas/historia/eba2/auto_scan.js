@@ -31,7 +31,7 @@ function findFiles(dir, fileList = []) {
       findFiles(filePath, fileList);
     } else {
       const ext = path.extname(file).toLowerCase();
-      if (ext === ".pdf" || ext === ".mp4" || ext === ".m4a") {
+      if (ext === ".pdf" || ext === ".mp4" || ext === ".m4a" || ext === ".png") {
         fileList.push(filePath);
       }
     }
@@ -67,6 +67,7 @@ function updateHtml() {
         let icon = "📄";
         if (ext === ".mp4") icon = "🎥";
         if (ext === ".m4a") icon = "🎵";
+        if (ext === ".png") icon = "🖼️";
 
         // Crear el elemento de lista
         listHtml += `    <li><a href="${href}" style="${LINK_STYLE}">${icon} ${fileName}</a></li>\n`;
