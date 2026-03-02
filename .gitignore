@@ -1,3 +1,6 @@
 
 /node_modules
 package-lock.json
+/dist/linux-unpacked
+/dist/win-unpacked
+/dist

@@ -1,19 +1,21 @@
 {
   "name": "clase-web",
   "productName": "Clase Web",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Visor de escritorio para el contenido de clase-web.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder"
+    "dist": "electron-builder --win --linux",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/acierto-incomodo/clase-web.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "acierto-incomodo <meliodas.aitor@gmail.com>",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
@@ -28,9 +30,18 @@
     "electron-builder": "^24.13.3"
   },
   "build": {
-    "appId": "com.github.acierto-incomodo.clase-web",
+    "artifactName": "Clase-Web-Setup.${ext}",
+    "appId": "com.stormgamesstudios.clase-web",
+    "icon": "img/logo_2048x2048.png",
+    "files": [
+      "main.js",
+      "package.json",
+      "img"
+    ],
     "publish": {
-      "provider": "github"
+      "provider": "github",
+      "owner": "acierto-incomodo",
+      "repo": "clase-web"
     },
     "win": {
       "target": "nsis"
@@ -44,7 +55,8 @@
       "target": [
         "AppImage",
         "deb"
-      ]
+      ],
+      "category": "Education"
     }
   }
 }
