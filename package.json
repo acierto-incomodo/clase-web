@@ -1,7 +1,7 @@
 {
   "name": "clase-web",
   "productName": "Clase Web",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Visor de escritorio para el contenido de clase-web.",
   "main": "main.js",
   "scripts": {
@@ -26,8 +26,8 @@
     "electron-updater": "^6.8.3"
   },
   "devDependencies": {
-    "electron": "^31.0.1",
-    "electron-builder": "^24.13.3"
+    "electron": "^40.6.1",
+    "electron-builder": "^26.8.1"
   },
   "build": {
     "artifactName": "Clase-Web-Setup.${ext}",

@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Notification, Menu, shell } = require('electron');
 const { autoUpdater } = require('electron-updater');
 
 let mainWindow;
@@ -16,6 +16,82 @@ function createWindow() {
 
   // Load the web page
   mainWindow.loadURL('https://acierto-incomodo.github.io/clase-web/');
+
+  // Crear el menú de la aplicación
+  const template = [
+    {
+      label: 'Menú',
+      submenu: [
+        {
+          label: 'Ir a la página principal',
+          click: () => {
+            mainWindow.loadURL('https://acierto-incomodo.github.io/clase-web/');
+          }
+        },
+        {
+          label: 'Ir al repositorio',
+          click: async () => {
+            await shell.openExternal('https://github.com/acierto-incomodo/clase-web');
+          }
+        },
+        { type: 'separator' },
+        {
+          label: 'Comprobar actualizaciones',
+          click: () => {
+            if (!app.isPackaged) {
+              showUpdateNotification('Información', 'La búsqueda de actualizaciones solo funciona en la aplicación empaquetada.');
+              return;
+            }
+            autoUpdater.checkForUpdates();
+          }
+        },
+        { type: 'separator' },
+        { role: 'quit', label: 'Salir' }
+      ]
+    },
+    {
+      label: 'Edición',
+      submenu: [
+        { role: 'undo', label: 'Deshacer' },
+        { role: 'redo', label: 'Rehacer' },
+        { type: 'separator' },
+        { role: 'cut', label: 'Cortar' },
+        { role: 'copy', label: 'Copiar' },
+        { role: 'paste', label: 'Pegar' },
+        { role: 'selectAll', label: 'Seleccionar todo' }
+      ]
+    },
+    {
+      label: 'Ver',
+      submenu: [
+        { role: 'reload', label: 'Recargar' },
+        { role: 'forceReload', label: 'Forzar recarga' },
+        { role: 'toggleDevTools', label: 'Herramientas de desarrollo' },
+        { type: 'separator' },
+        { role: 'resetZoom', label: 'Tamaño real' },
+        { role: 'zoomIn', label: 'Acercar' },
+        { role: 'zoomOut', label: 'Alejar' },
+        { type: 'separator' },
+        { role: 'togglefullscreen', label: 'Pantalla completa' }
+      ]
+    }
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+
+  // Menú contextual (clic derecho)
+  mainWindow.webContents.on('context-menu', (e, params) => {
+    Menu.buildFromTemplate([
+      { role: 'cut', label: 'Cortar', visible: params.editFlags.canCut },
+      { role: 'copy', label: 'Copiar', visible: params.editFlags.canCopy },
+      { role: 'paste', label: 'Pegar', visible: params.editFlags.canPaste },
+      { type: 'separator', visible: params.editFlags.canCut || params.editFlags.canCopy || params.editFlags.canPaste },
+      { role: 'selectAll', label: 'Seleccionar todo' },
+      { type: 'separator' },
+      { role: 'reload', label: 'Recargar' }
+    ]).popup(mainWindow);
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -49,7 +125,52 @@ app.on('activate', () => {
 });
 
 // --- Auto-update Logic ---
+
+// Helper para mostrar notificaciones
+function showUpdateNotification(title, body) {
+  if (Notification.isSupported()) {
+    new Notification({ title, body }).show();
+  }
+}
+
+// Cuando se encuentra una actualización, se muestra una notificación.
+autoUpdater.on('update-available', (info) => {
+  showUpdateNotification(
+    'Actualización disponible',
+    `Descargando la versión ${info.version}...`
+  );
+});
+
+// Muestra el progreso de la descarga en la barra de tareas
+autoUpdater.on('download-progress', (progressObj) => {
+  if (mainWindow) {
+    // El progreso es un valor de 0 a 1
+    mainWindow.setProgressBar(progressObj.percent / 100);
+  }
+});
+
 autoUpdater.on('update-downloaded', (info) => {
-  // The update is ready. Quit and install it silently.
-  autoUpdater.quitAndInstall(true, true);
+  // La actualización está lista. Se quita la barra de progreso y se notifica al usuario.
+  if (mainWindow) {
+    mainWindow.setProgressBar(-1);
+  }
+  showUpdateNotification(
+    'Actualización lista',
+    'La aplicación se reiniciará en breve para instalar la nueva versión.'
+  );
+  // Salir e instalar silenciosamente después de un breve retraso
+  setTimeout(() => {
+    autoUpdater.quitAndInstall(true, true);
+  }, 3000);
+});
+
+autoUpdater.on('error', (err) => {
+  if (mainWindow) {
+    mainWindow.setProgressBar(-1); // Limpiar la barra de progreso en caso de error
+  }
+  showUpdateNotification('Error en la actualización', `Ocurrió un error: ${err.message}`);
+});
+
+autoUpdater.on('update-not-available', (info) => {
+  showUpdateNotification('Sin actualizaciones', 'No hay nuevas actualizaciones disponibles.');
 });
