@@ -1,7 +1,7 @@
 {
   "name": "clase-web",
   "productName": "Clase Web",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Visor de escritorio para el contenido de clase-web.",
   "main": "main.js",
   "scripts": {
