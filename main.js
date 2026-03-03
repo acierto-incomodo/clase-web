@@ -17,6 +17,24 @@ function createWindow() {
   // Load the web page
   mainWindow.loadURL('https://acierto-incomodo.github.io/clase-web/');
 
+  // Manejo de errores de carga (por ejemplo, sin internet)
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    // Ignorar error de cancelación (ej. al recargar rápidamente o navegar antes de terminar)
+    if (errorCode === -3) return;
+    
+    const html = `
+      <html>
+        <body style="background-color: #121212; color: #e0e0e0; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+          <h2 style="color: #bb86fc;">¡Vaya! No se pudo cargar la página.</h2>
+          <p>Comprueba tu conexión a internet.</p>
+          <p style="color: #a0a0a0; font-size: 0.8em;">Error: ${errorDescription}</p>
+          <button onclick="location.reload()" style="padding: 10px 20px; background-color: #bb86fc; color: #121212; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 20px;">Reintentar</button>
+        </body>
+      </html>
+    `;
+    mainWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(html));
+  });
+
   // Crear el menú de la aplicación
   const template = [
     {
@@ -47,6 +65,25 @@ function createWindow() {
         },
         { type: 'separator' },
         { role: 'quit', label: 'Salir' }
+      ]
+    },
+    {
+      label: 'Navegación',
+      submenu: [
+        {
+          label: 'Atrás',
+          accelerator: 'Alt+Left',
+          click: () => {
+            if (mainWindow.webContents.canGoBack()) mainWindow.webContents.goBack();
+          }
+        },
+        {
+          label: 'Adelante',
+          accelerator: 'Alt+Right',
+          click: () => {
+            if (mainWindow.webContents.canGoForward()) mainWindow.webContents.goForward();
+          }
+        }
       ]
     },
     {
@@ -160,7 +197,7 @@ autoUpdater.on('update-downloaded', (info) => {
   );
   // Salir e instalar silenciosamente después de un breve retraso
   setTimeout(() => {
-    autoUpdater.quitAndInstall(true, true);
+    autoUpdater.quitAndInstall(false, true);
   }, 3000);
 });
 
