@@ -14,6 +14,9 @@ function createWindow() {
     },
   });
 
+  // Maximiza la ventana al iniciar
+  mainWindow.maximize();
+
   // Load the web page
   mainWindow.loadFile('index.html');
 
