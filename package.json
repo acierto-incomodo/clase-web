@@ -33,11 +33,6 @@
     "artifactName": "Clase-Web-Setup.${ext}",
     "appId": "com.stormgamesstudios.clase-web",
     "icon": "img/logo_2048x2048.png",
-    "files": [
-      "main.js",
-      "package.json",
-      "img"
-    ],
     "publish": {
       "provider": "github",
       "owner": "acierto-incomodo",

@@ -15,7 +15,7 @@ function createWindow() {
   });
 
   // Load the web page
-  mainWindow.loadURL('https://acierto-incomodo.github.io/clase-web/');
+  mainWindow.loadFile('index.html');
 
   // Manejo de errores de carga (por ejemplo, sin internet)
   mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
