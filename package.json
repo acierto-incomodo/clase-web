@@ -1,7 +1,7 @@
 {
   "name": "clase-web",
   "productName": "Clase Web",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Visor de escritorio para el contenido de clase-web.",
   "main": "main.js",
   "scripts": {
@@ -52,14 +52,16 @@
     "nsis": {
       "oneClick": true,
       "perMachine": false,
-      "allowToChangeInstallationDirectory": false
+      "allowToChangeInstallationDirectory": false,
+      "differentialPackage": true
     },
     "linux": {
       "target": [
         "AppImage",
         "deb"
       ],
-      "category": "Education"
+      "category": "Education",
+      "icon": "img/logo_2048x2048.png"
     }
   }
 }

@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Notification, Menu, shell } = require('electron');
 const { autoUpdater } = require('electron-updater');
+const path = require('path');
 
 let mainWindow;
 
@@ -7,6 +8,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    // Establece el icono de la ventana.
+    icon: path.join(__dirname, 'img/logo_2048x2048.png'),
     webPreferences: {
       // Security best practices
       nodeIntegration: false,
