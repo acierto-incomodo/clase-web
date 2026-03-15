@@ -7,7 +7,8 @@ if (Test-Path "dist") {
         $_.Extension -ne ".AppImage"
     } | Remove-Item -Recurse -Force
     Write-Host "Limpieza completada." -ForegroundColor Green
-} else {
+}
+else {
     Write-Host "No existe carpeta dist previa." -ForegroundColor Cyan
 }
 

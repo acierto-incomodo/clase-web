@@ -1,79 +1,242 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="eu">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2. Ebaluaketa</title>
-    <link rel="stylesheet" href="../../../style.css">
-</head>
+    <link rel="stylesheet" href="../../../style.css" />
+  </head>
 
-<body>
+  <body>
     <div class="unidad-container">
-        <a href="../index.html" style="color: var(--secondary-text); text-decoration: none;">← Itzuli
-            Fisikara</a>
+      <a
+        href="../index.html"
+        style="color: var(--secondary-text); text-decoration: none"
+        >← Itzuli Fisikara</a
+      >
 
-        <header style="margin-bottom: 40px; border-bottom: 1px solid #333; padding-bottom: 20px;">
-            <h1 style="text-align: left; margin-bottom: 10px;">2. Ebaluaketa</h1>
-            <p style="color: var(--secondary-text);">Argiaren errefrakzioa, Eremu Elektrikoa eta Eremu Magnetikoa.</p>
-        </header>
+      <header
+        style="
+          margin-bottom: 40px;
+          border-bottom: 1px solid #333;
+          padding-bottom: 20px;
+        "
+      >
+        <h1 style="text-align: left; margin-bottom: 10px">2. Ebaluaketa</h1>
+        <p style="color: var(--secondary-text)">
+          Argiaren errefrakzioa, Eremu Elektrikoa eta Eremu Magnetikoa.
+        </p>
+      </header>
 
-        <div class="lista-unidades">
-
-            <div class="unidad-card">
-                <div class="unidad-info">
-                    <span class="numero-unidad">01</span>
-                    <div>
-                        <h3>Teoria</h3>
-                        <p>Teoriaren apunteak eta laburpenak.</p>
-                        <ul id="lista-teoria" style="margin-top: 10px; list-style: none; padding: 0;">
-    <li><span style="color: #888;">Ez dago fitxategirik.</span></li></ul>
-                    </div>
-                </div>
+      <div class="lista-unidades">
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">01</span>
+            <div>
+              <h3>Teoria</h3>
+              <p>Teoriaren apunteak eta laburpenak.</p>
+              <ul
+                id="lista-teoria"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+                <li><span style="color: #888">Ez dago fitxategirik.</span></li>
+              </ul>
             </div>
-
-            <div class="unidad-card">
-                <div class="unidad-info">
-                    <span class="numero-unidad">02</span>
-                    <div>
-                        <h3>Ariketak</h3>
-                        <p>Gaia lantzeko ariketa-sortak.</p>
-                        <ul id="lista-ariketak" style="margin-top: 10px; list-style: none; padding: 0;">
-    <li><a href="ejercicios/argiaren-errefrakzioa/4 Argiaren errefrakzioa buruketa ebatziak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 4 Argiaren errefrakzioa buruketa ebatziak.pdf</a></li>
-    <li><a href="ejercicios/argiaren-errefrakzioa/4 Argiaren errefrakzioa buruketak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 4 Argiaren errefrakzioa buruketak.pdf</a></li>
-    <li><a href="ejercicios/eremu-elektrikoa/5 Eremu Elektrikoa buruketa ebatziak.OLD.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 5 Eremu Elektrikoa buruketa ebatziak.OLD.pdf</a></li>
-    <li><a href="ejercicios/eremu-elektrikoa/5 Eremu Elektrikoa buruketak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 5 Eremu Elektrikoa buruketak.pdf</a></li>
-    <li><a href="ejercicios/eremu-magnetikoa/6 Eremu Magnetikoa buruketa ebatziak.OLD.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 6 Eremu Magnetikoa buruketa ebatziak.OLD.pdf</a></li>
-    <li><a href="ejercicios/eremu-magnetikoa/6 Eremu Magnetikoa buruketak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 6 Eremu Magnetikoa buruketak.pdf</a></li>
-    <li><a href="ejercicios/indukzio-elektromagnetikoa/7 Indukzio Elektromagnetikoa buruketa ebatziak.OLD.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 7 Indukzio Elektromagnetikoa buruketa ebatziak.OLD.pdf</a></li>
-    <li><a href="ejercicios/indukzio-elektromagnetikoa/7 Indukzio Elektromagnetikoa buruketak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 7 Indukzio Elektromagnetikoa buruketak.pdf</a></li>
-</ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="unidad-card">
-                <div class="unidad-info">
-                    <span class="numero-unidad">03</span>
-                    <div>
-                        <h3>Zuzenketak</h3>
-                        <p>Ariketen ebazpenak eta zuzenketak.</p>
-                        <ul id="lista-zuzenketak" style="margin-top: 10px; list-style: none; padding: 0;">
-    <li><a href="correcciones/argiaren-errefrakzioa/4 Argiaren errefrakzioa buruketa ebatziak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 4 Argiaren errefrakzioa buruketa ebatziak.pdf</a></li>
-    <li><a href="correcciones/argiaren-errefrakzioa/4 Argiaren errefrakzioa buruketak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 4 Argiaren errefrakzioa buruketak.pdf</a></li>
-    <li><a href="correcciones/eremu-elektrikoa/5 Eremu Elektrikoa buruketa ebatziak.OLD.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 5 Eremu Elektrikoa buruketa ebatziak.OLD.pdf</a></li>
-    <li><a href="correcciones/eremu-elektrikoa/5 Eremu Elektrikoa buruketak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 5 Eremu Elektrikoa buruketak.pdf</a></li>
-    <li><a href="correcciones/eremu-magnetikoa/6 Eremu Magnetikoa buruketa ebatziak.OLD.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 6 Eremu Magnetikoa buruketa ebatziak.OLD.pdf</a></li>
-    <li><a href="correcciones/eremu-magnetikoa/6 Eremu Magnetikoa buruketak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 6 Eremu Magnetikoa buruketak.pdf</a></li>
-    <li><a href="correcciones/indukzio-elektromagnetikoa/7 Indukzio Elektromagnetikoa buruketa ebatziak.OLD.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 7 Indukzio Elektromagnetikoa buruketa ebatziak.OLD.pdf</a></li>
-    <li><a href="correcciones/indukzio-elektromagnetikoa/7 Indukzio Elektromagnetikoa buruketak.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 7 Indukzio Elektromagnetikoa buruketak.pdf</a></li>
-</ul>
-                    </div>
-                </div>
-            </div>
-
+          </div>
         </div>
-    </div>
-</body>
 
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">02</span>
+            <div>
+              <h3>Ariketak</h3>
+              <p>Gaia lantzeko ariketa-sortak.</p>
+              <ul
+                id="lista-ariketak"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+                <li>
+                  <a
+                    href="ejercicios/argiaren-errefrakzioa/4 Argiaren errefrakzioa buruketa ebatziak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 4 Argiaren errefrakzioa buruketa ebatziak.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="ejercicios/argiaren-errefrakzioa/4 Argiaren errefrakzioa buruketak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 4 Argiaren errefrakzioa buruketak.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="ejercicios/eremu-elektrikoa/5 Eremu Elektrikoa buruketa ebatziak.OLD.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 5 Eremu Elektrikoa buruketa ebatziak.OLD.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="ejercicios/eremu-elektrikoa/5 Eremu Elektrikoa buruketak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 5 Eremu Elektrikoa buruketak.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="ejercicios/eremu-magnetikoa/6 Eremu Magnetikoa buruketa ebatziak.OLD.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 6 Eremu Magnetikoa buruketa ebatziak.OLD.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="ejercicios/eremu-magnetikoa/6 Eremu Magnetikoa buruketak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 6 Eremu Magnetikoa buruketak.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="ejercicios/indukzio-elektromagnetikoa/7 Indukzio Elektromagnetikoa buruketa ebatziak.OLD.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 7 Indukzio Elektromagnetikoa buruketa
+                    ebatziak.OLD.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="ejercicios/indukzio-elektromagnetikoa/7 Indukzio Elektromagnetikoa buruketak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 7 Indukzio Elektromagnetikoa buruketak.pdf</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">03</span>
+            <div>
+              <h3>Zuzenketak</h3>
+              <p>Ariketen ebazpenak eta zuzenketak.</p>
+              <ul
+                id="lista-zuzenketak"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+                <li>
+                  <a
+                    href="correcciones/argiaren-errefrakzioa/4 Argiaren errefrakzioa buruketa ebatziak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 4 Argiaren errefrakzioa buruketa ebatziak.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="correcciones/argiaren-errefrakzioa/4 Argiaren errefrakzioa buruketak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 4 Argiaren errefrakzioa buruketak.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="correcciones/eremu-elektrikoa/5 Eremu Elektrikoa buruketa ebatziak.OLD.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 5 Eremu Elektrikoa buruketa ebatziak.OLD.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="correcciones/eremu-elektrikoa/5 Eremu Elektrikoa buruketak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 5 Eremu Elektrikoa buruketak.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="correcciones/eremu-magnetikoa/6 Eremu Magnetikoa buruketa ebatziak.OLD.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 6 Eremu Magnetikoa buruketa ebatziak.OLD.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="correcciones/eremu-magnetikoa/6 Eremu Magnetikoa buruketak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 6 Eremu Magnetikoa buruketak.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="correcciones/indukzio-elektromagnetikoa/7 Indukzio Elektromagnetikoa buruketa ebatziak.OLD.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 7 Indukzio Elektromagnetikoa buruketa
+                    ebatziak.OLD.pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="correcciones/indukzio-elektromagnetikoa/7 Indukzio Elektromagnetikoa buruketak.pdf"
+                    style="
+                      color: var(--text-color, #fff);
+                      text-decoration: underline;
+                    "
+                    >📄 7 Indukzio Elektromagnetikoa buruketak.pdf</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -2,6 +2,8 @@ const { app, BrowserWindow, Notification, Menu, shell } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 
+autoUpdater.allowDowngrade = true;
+
 let mainWindow;
 
 function createWindow() {
