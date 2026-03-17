@@ -2,6 +2,7 @@
 if (Test-Path "dist") {
     Write-Host "Limpiando carpeta dist (conservando Linux)..." -ForegroundColor Yellow
     Get-ChildItem "dist" | Where-Object {
+        $_.Name -ne "linux-unpacked" -and
         $_.Name -ne "latest-linux.yml" -and
         $_.Extension -ne ".deb" -and
         $_.Extension -ne ".AppImage"
@@ -11,8 +12,6 @@ if (Test-Path "dist") {
 else {
     Write-Host "No existe carpeta dist previa." -ForegroundColor Cyan
 }
-
-npm i
 
 # Ejecutar el comando de construcción definido en package.json
 Write-Host "Iniciando construcción Windows (npm run dist:win)..." -ForegroundColor Yellow
