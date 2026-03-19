@@ -1,7 +1,7 @@
 {
   "name": "clase-web",
   "productName": "Clase Web",
-  "version": "1.2.1",
+  "version": "1.2.5",
   "description": "Visor de escritorio para el contenido de clase-web.",
   "main": "main.js",
   "scripts": {
@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/acierto-incomodo/clase-web#readme",
   "dependencies": {
-    "electron-updater": "^6.8.3"
+    "electron-updater": "^6.8.3",
+    "extract-zip": "^2.0.1"
   },
   "devDependencies": {
     "electron": "^41.0.3",
@@ -37,9 +38,9 @@
       "main.js",
       "index.html",
       "style.css",
-      "img/**/*",
-      "akademia/**/*",
-      "asignaturas/**/*"
+      "offline-index.html",
+      "offline-loading.html",
+      "img/**/*"
     ],
     "publish": {
       "provider": "github",

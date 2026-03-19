@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clase WEB - Preparando contenido</title>
+    <style>
+      body {
+        background: #121212;
+        color: #e0e0e0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .card {
+        max-width: 720px;
+        padding: 24px;
+        border: 1px solid #333;
+        border-radius: 12px;
+        background: #161616;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+      }
+      h2 {
+        margin: 0 0 8px;
+        color: #bb86fc;
+      }
+      p {
+        margin: 0;
+        color: #a0a0a0;
+        line-height: 1.4;
+      }
+      .tip {
+        margin-top: 14px;
+        font-size: 0.9em;
+        color: #8a8a8a;
+      }
+      .progress-container {
+        margin-top: 18px;
+        width: 100%;
+        height: 8px;
+        border-radius: 999px;
+        background: #202020;
+        overflow: hidden;
+      }
+      .progress-bar {
+        width: 40%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #bb86fc, #03dac6);
+        animation: indeterminate 1.4s infinite ease-in-out;
+      }
+      @keyframes indeterminate {
+        0% {
+          transform: translateX(-100%);
+        }
+        50% {
+          transform: translateX(15%);
+        }
+        100% {
+          transform: translateX(120%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Preparando el contenido offline…</h2>
+      <p>
+        La aplicación está descargando y descomprimiendo los paquetes necesarios.
+        Esto puede tardar unos minutos la primera vez.
+      </p>
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+      <p class="tip">
+        Puedes ver el progreso en la barra de tareas.
+      </p>
+    </div>
+  </body>
+</html>
+

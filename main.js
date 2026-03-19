@@ -1,12 +1,174 @@
 const { app, BrowserWindow, Notification, Menu, shell } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
+const fs = require('fs');
+const https = require('https');
+const extract = require('extract-zip');
+const { URL } = require('url');
 
 autoUpdater.allowDowngrade = true;
 
 let mainWindow;
+let offlineContentDir = null;
 
-function createWindow() {
+// --- Descarga y gestión de contenidos offline (asignaturas en .zip) ---
+
+function getContentBaseDir() {
+  const version = app.getVersion();
+  return path.join(app.getPath('userData'), 'offline-content', version);
+}
+
+// TODO: sustituir estas URLs por las reales donde publiques parte1.zip y parte2.zip
+const CONTENT_PACKS = [
+  {
+    name: 'parte1.zip',
+    url: 'https://github.com/acierto-incomodo/clase-web/releases/latest/download/parte1.zip',
+  },
+  {
+    name: 'parte2.zip',
+    url: 'https://github.com/acierto-incomodo/clase-web/releases/latest/download/parte2.zip',
+  },
+  {
+    name: 'parte3.zip',
+    url: 'https://github.com/acierto-incomodo/clase-web/releases/latest/download/parte3.zip',
+  }
+];
+
+function downloadFile(url, destination, onProgress, redirectCount = 0) {
+  return new Promise((resolve, reject) => {
+    if (redirectCount > 10) {
+      reject(new Error(`Demasiadas redirecciones al descargar: ${url}`));
+      return;
+    }
+
+    const requestUrl = new URL(url);
+    const file = fs.createWriteStream(destination);
+
+    const req = https.get(
+      {
+        protocol: requestUrl.protocol,
+        hostname: requestUrl.hostname,
+        path: requestUrl.pathname + requestUrl.search,
+        headers: {
+          'User-Agent': 'Clase-Web',
+          Accept: '*/*',
+        },
+      },
+      (response) => {
+        // Seguir redirects (GitHub assets normalmente redirigen)
+        if (
+          response.statusCode &&
+          response.statusCode >= 300 &&
+          response.statusCode < 400 &&
+          response.headers.location
+        ) {
+          file.close(() => {
+            try {
+              fs.unlinkSync(destination);
+            } catch {
+              // ignore
+            }
+            const nextUrl = new URL(response.headers.location, requestUrl).toString();
+            resolve(downloadFile(nextUrl, destination, onProgress, redirectCount + 1));
+          });
+          return;
+        }
+
+        if (response.statusCode !== 200) {
+          reject(new Error(`Fallo al descargar ${url}: código ${response.statusCode}`));
+          return;
+        }
+
+        const total = Number(response.headers['content-length'] || 0);
+        let received = 0;
+
+        response.on('data', (chunk) => {
+          received += chunk.length;
+          if (onProgress && total > 0) {
+            onProgress(received / total);
+          } else if (onProgress) {
+            onProgress(null); // progreso desconocido
+          }
+        });
+
+        response.pipe(file);
+        file.on('finish', () => {
+          file.close(() => resolve());
+        });
+      },
+    );
+
+    req.on('error', (err) => {
+      fs.unlink(destination, () => reject(err));
+    });
+  });
+}
+
+async function ensureOfflineContent(onOverallProgress) {
+  const contentDir = getContentBaseDir();
+  const asignaturasDir = path.join(contentDir, 'asignaturas');
+
+  // Si ya existe la carpeta asignaturas para esta versión, no hacemos nada
+  if (fs.existsSync(asignaturasDir)) {
+    return contentDir;
+  }
+
+  fs.mkdirSync(contentDir, { recursive: true });
+
+  const totalPacks = CONTENT_PACKS.length;
+  const downloadWeight = 0.85; // 85% descarga, 15% extracción/copia
+
+  for (let i = 0; i < totalPacks; i++) {
+    const pack = CONTENT_PACKS[i];
+    const zipPath = path.join(contentDir, pack.name);
+    if (!fs.existsSync(zipPath)) {
+      await downloadFile(pack.url, zipPath, (p) => {
+        if (!onOverallProgress) return;
+        const packProgress = p == null ? 0 : p;
+        const overall =
+          (i / totalPacks) * downloadWeight +
+          (packProgress / totalPacks) * downloadWeight;
+        onOverallProgress(overall);
+      });
+    }
+
+    if (onOverallProgress) {
+      onOverallProgress(downloadWeight);
+    }
+
+    // extract-zip no ofrece progreso fino: usamos modo indeterminado mientras extrae
+    if (onOverallProgress) {
+      onOverallProgress(2); // indeterminado
+    }
+    await extract(zipPath, { dir: contentDir });
+  }
+
+  if (onOverallProgress) {
+    onOverallProgress(0.95);
+  }
+
+  // Copiar offline-index.html y style.css al directorio de contenido
+  const appDir = __dirname;
+  const offlineIndexSrc = path.join(appDir, 'offline-index.html');
+  const offlineIndexDest = path.join(contentDir, 'offline-index.html');
+  if (fs.existsSync(offlineIndexSrc)) {
+    fs.copyFileSync(offlineIndexSrc, offlineIndexDest);
+  }
+
+  const styleSrc = path.join(appDir, 'style.css');
+  const styleDest = path.join(contentDir, 'style.css');
+  if (fs.existsSync(styleSrc)) {
+    fs.copyFileSync(styleSrc, styleDest);
+  }
+
+  if (onOverallProgress) {
+    onOverallProgress(1);
+  }
+
+  return contentDir;
+}
+
+function createWindow(contentDir) {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -22,14 +184,32 @@ function createWindow() {
   // Maximiza la ventana al iniciar
   mainWindow.maximize();
 
-  // Load the web page
-  mainWindow.loadFile('index.html');
+  // Load the web page:
+  // - En modo empaquetado: usar el contenido offline extraído (offline-index.html) cuando exista
+  // - En modo empaquetado mientras se prepara el contenido: pantalla de carga
+  // - En desarrollo: usar el index.html original del proyecto
+  const effectiveContentDir = contentDir || offlineContentDir;
+  if (app.isPackaged && effectiveContentDir) {
+    const offlineIndexPath = path.join(effectiveContentDir, 'offline-index.html');
+    mainWindow.loadFile(offlineIndexPath);
+  } else if (app.isPackaged && !effectiveContentDir) {
+    mainWindow.loadFile('offline-loading.html');
+  } else {
+    mainWindow.loadFile('index.html');
+  }
 
-  // Manejo de errores de carga (por ejemplo, sin internet)
-  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+  // Manejo de errores de carga
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
     // Ignorar error de cancelación (ej. al recargar rápidamente o navegar antes de terminar)
     if (errorCode === -3) return;
-    
+
+    // Si tenemos contenido offline preparado, volver siempre al inicio offline
+    if (offlineContentDir) {
+      const offlineIndexPath = path.join(offlineContentDir, 'offline-index.html');
+      mainWindow.loadFile(offlineIndexPath);
+      return;
+    }
+
     const html = `
       <html>
         <body style="background-color: #121212; color: #e0e0e0; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0;">
@@ -51,7 +231,29 @@ function createWindow() {
         {
           label: 'Ir a la página principal',
           click: () => {
-            mainWindow.loadURL('https://acierto-incomodo.github.io/clase-web/');
+            // Abrir la versión web en el navegador por defecto
+            shell.openExternal('https://acierto-incomodo.github.io/clase-web/');
+          }
+        },
+        {
+          label: 'Ir al modo offline',
+          click: () => {
+            if (!app.isPackaged) {
+              showUpdateNotification(
+                'Modo offline',
+                'El modo offline solo está disponible en la aplicación empaquetada.',
+              );
+              return;
+            }
+            if (!offlineContentDir) {
+              showUpdateNotification(
+                'Modo offline',
+                'El contenido offline todavía no está preparado. Espera unos instantes.',
+              );
+              return;
+            }
+            const offlineIndexPath = path.join(offlineContentDir, 'offline-index.html');
+            mainWindow.loadFile(offlineIndexPath);
           }
         },
         {
@@ -65,7 +267,10 @@ function createWindow() {
           label: 'Comprobar actualizaciones',
           click: () => {
             if (!app.isPackaged) {
-              showUpdateNotification('Información', 'La búsqueda de actualizaciones solo funciona en la aplicación empaquetada.');
+              showUpdateNotification(
+                'Información',
+                'La búsqueda de actualizaciones solo funciona en la aplicación empaquetada.',
+              );
               return;
             }
             autoUpdater.checkForUpdates();
@@ -82,14 +287,16 @@ function createWindow() {
           label: 'Atrás',
           accelerator: 'Alt+Left',
           click: () => {
-            if (mainWindow.webContents.canGoBack()) mainWindow.webContents.goBack();
+            if (mainWindow.webContents.canGoBack())
+              mainWindow.webContents.goBack();
           }
         },
         {
           label: 'Adelante',
           accelerator: 'Alt+Right',
           click: () => {
-            if (mainWindow.webContents.canGoForward()) mainWindow.webContents.goForward();
+            if (mainWindow.webContents.canGoForward())
+              mainWindow.webContents.goForward();
           }
         }
       ]
@@ -143,8 +350,48 @@ function createWindow() {
   });
 }
 
-app.on('ready', () => {
-  createWindow();
+app.on('ready', async () => {
+  // Crear la ventana cuanto antes (muestra pantalla de carga en empaquetado)
+  createWindow(null);
+
+  let contentDir = null;
+
+  try {
+    if (app.isPackaged) {
+      // Progreso en barra de tareas durante descarga / extracción
+      contentDir = await ensureOfflineContent((p) => {
+        if (!mainWindow) return;
+        if (p === 2) {
+          // indeterminado
+          mainWindow.setProgressBar(2);
+          return;
+        }
+        if (typeof p === 'number') {
+          mainWindow.setProgressBar(Math.max(0, Math.min(1, p)));
+        }
+      });
+    }
+  } catch (err) {
+    console.error('Error preparando el contenido offline:', err);
+    if (mainWindow) {
+      mainWindow.setProgressBar(-1);
+    }
+    if (Notification.isSupported()) {
+      new Notification({
+        title: 'Error contenido offline',
+        body:
+          'No se pudo preparar el contenido offline. Revisa tu conexión o vuelve a intentarlo más tarde.',
+      }).show();
+    }
+  }
+
+  // Si hemos preparado contenido offline, guardar ruta y cargarla en la ventana existente
+  if (app.isPackaged && contentDir && mainWindow) {
+    offlineContentDir = contentDir;
+    mainWindow.setProgressBar(-1);
+    const offlineIndexPath = path.join(contentDir, 'offline-index.html');
+    mainWindow.loadFile(offlineIndexPath);
+  }
 
   // Only check for updates when the app is packaged
   if (app.isPackaged) {
@@ -165,7 +412,7 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createWindow();
+    createWindow(offlineContentDir);
   }
 });
 
