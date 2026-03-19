@@ -1,46 +1,238 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaztelera</title>
-    <link rel="stylesheet" href="./../../style.css"> </head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gaztelera - Todo</title>
+    <link rel="stylesheet" href="../../../style.css" />
+  </head>
+
+  <body>
     <div class="unidad-container">
-        <a href="./../../index.html" style="color: var(--secondary-text); text-decoration: none;">← Volver al Panel General</a>
-        
-        <header style="margin-bottom: 40px; border-bottom: 1px solid #333; padding-bottom: 20px;">
-            <h1 style="text-align: left; margin-bottom: 10px;">Gaztelera</h1>
-            <p style="color: var(--secondary-text);">Gestión de unidades, apuntes y materiales del curso.</p>
-        </header>
+      <a
+        href="./../../index.html"
+        style="color: var(--secondary-text); text-decoration: none"
+        >← Atrás</a
+      >
 
-        <div class="lista-unidades">
-            
-            <!--
-            <a href="unidad1/index.html" class="unidad-card">
-                <div class="unidad-info">
-                    <span class="numero-unidad">01</span>
-                    <div>
-                        <h3>El paso del Mito al Logos</h3>
-                        <p>Presocráticos, Sócrates y los Sofistas.</p>
-                    </div>
-                </div>
-                <span class="flecha">→</span>
-            </a>
+      <header
+        style="
+          margin-bottom: 40px;
+          border-bottom: 1px solid #333;
+          padding-bottom: 20px;
+        "
+      >
+        <h1 style="text-align: left; margin-bottom: 10px">Gaztelera - Todo</h1>
+        <p style="color: var(--secondary-text)">
+          Todos los materiales organizados por categorías: lengua y gramática,
+          literatura, textos, redacción, etc.
+        </p>
+      </header>
 
-            <a href="unidad2/index.html" class="unidad-card">
-                <div class="unidad-info">
-                    <span class="numero-unidad">02</span>
-                    <div>
-                        <h3>Platón y el Idealismo</h3>
-                        <p>Teoría de las ideas y el mito de la caverna.</p>
-                    </div>
-                </div>
-                <span class="flecha">→</span>
-            </a>
-            -->
-
+      <div class="lista-unidades">
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">01</span>
+            <div>
+              <h3>Lenguaje y gramática</h3>
+              <p>Teoría y ejercicios sobre lengua y gramática.</p>
+              <ul
+                id="lista-lenguaje-y-gramatica"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+    <li><a href="lenguaje-y-gramatica/00. EL TEXTO y sus propiedades.ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 00. EL TEXTO y sus propiedades.ppt</a></li>
+    <li><a href="lenguaje-y-gramatica/01. 2 Funciones del lenguaje adecuación.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 01. 2 Funciones del lenguaje adecuación.pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/2.Tipología textual/02.Tª - argumentos y falacias.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 02.Tª - argumentos y falacias.pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/2.Tipología textual/Argumentos y Falacias.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Argumentos y Falacias.pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/3. Género textual editorial y artículo de opinión/0. Textos Periodisticos, ámbito de uso y género textual.pptx" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 0. Textos Periodisticos, ámbito de uso y género textual.pptx</a></li>
+    <li><a href="lenguaje-y-gramatica/3. Género textual editorial y artículo de opinión/1. Editorial. Género textual.doc" style="color: var(--text-color, #fff); text-decoration: underline;">📄 1. Editorial. Género textual.doc</a></li>
+    <li><a href="lenguaje-y-gramatica/3. Género textual editorial y artículo de opinión/2. Artículo de opinión. Género textual.doc" style="color: var(--text-color, #fff); text-decoration: underline;">📄 2. Artículo de opinión. Género textual.doc</a></li>
+    <li><a href="lenguaje-y-gramatica/4. Modalización subjetividad y objetividad/01. tabla MODALIZADORES DISCURSIVOS.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 01. tabla MODALIZADORES DISCURSIVOS.pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/4. Modalización subjetividad y objetividad/02. la-expresionn-de-la-subjetividad-y-la-objetividad-en-los-textos.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 02. la-expresionn-de-la-subjetividad-y-la-objetividad-en-los-textos.pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/4. Modalización subjetividad y objetividad/03. rasgos-objetividad-y-subjetividad-en-el-texto.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 03. rasgos-objetividad-y-subjetividad-en-el-texto.pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/6 Categorías gramaticales/00. Textos para analizar.docx" style="color: var(--text-color, #fff); text-decoration: underline;">📄 00. Textos para analizar.docx</a></li>
+    <li><a href="lenguaje-y-gramatica/6 Categorías gramaticales/1. MORFOLOGÍA básica. ESQUEMA REVISADO.docx (3).pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 1. MORFOLOGÍA básica. ESQUEMA REVISADO.docx (3).pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/el texto esquema general.png" style="color: var(--text-color, #fff); text-decoration: underline;">🖼️ el texto esquema general.png</a></li>
+    <li><a href="lenguaje-y-gramatica/Funciones y Comunicación ESQUEMA.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Funciones y Comunicación ESQUEMA.pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/Glosario NGLE (1).pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Glosario NGLE (1).pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/Perifrasis verbales/Clases de Perifrasis verbales.JPG" style="color: var(--text-color, #fff); text-decoration: underline;">🖼️ Clases de Perifrasis verbales.JPG</a></li>
+    <li><a href="lenguaje-y-gramatica/Perifrasis verbales/perifrasis actividades.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 perifrasis actividades.pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/RESPUESTA MODELO TIPOLOGÍA-MODALIDAD TEXTUAL.docx" style="color: var(--text-color, #fff); text-decoration: underline;">📄 RESPUESTA MODELO TIPOLOGÍA-MODALIDAD TEXTUAL.docx</a></li>
+    <li><a href="lenguaje-y-gramatica/Tabla. Variedad diafásica o registro idiomático.doc (1).pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Tabla. Variedad diafásica o registro idiomático.doc (1).pdf</a></li>
+    <li><a href="lenguaje-y-gramatica/Tipos de locuciones NGLE.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Tipos de locuciones NGLE.pdf</a></li>
+</ul>
+            </div>
+          </div>
         </div>
+
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">02</span>
+            <div>
+              <h3>Lite 1 - Antonio Machado</h3>
+              <p>Textos, presentaciones y análisis sobre Antonio Machado.</p>
+              <ul
+                id="lista-lite1-antonio-machado"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+    <li><a href="lite1-antonio-machado/00. Recursos estilísticos.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 00. Recursos estilísticos.pdf</a></li>
+    <li><a href="lite1-antonio-machado/2. C. literario Modernismo y generación del 98/2. Tabla Modernismo y G. del 98.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 2. Tabla Modernismo y G. del 98.pdf</a></li>
+    <li><a href="lite1-antonio-machado/2. C. literario Modernismo y generación del 98/Hautatzen. CONTEXTO MACHADO.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Hautatzen. CONTEXTO MACHADO.pdf</a></li>
+    <li><a href="lite1-antonio-machado/3. Autor y obra/Antonio Machado (1).pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Antonio Machado (1).pdf</a></li>
+    <li><a href="lite1-antonio-machado/3. Autor y obra/Bio y obra Antonio Machado.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Bio y obra Antonio Machado.pdf</a></li>
+    <li><a href="lite1-antonio-machado/3. Autor y obra/Hautatzen. Autor y obra.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Hautatzen. Autor y obra.pdf</a></li>
+    <li><a href="lite1-antonio-machado/ANÁLISIS POEMAS DE ANTONIO MACHADO.docx" style="color: var(--text-color, #fff); text-decoration: underline;">📄 ANÁLISIS POEMAS DE ANTONIO MACHADO.docx</a></li>
+    <li><a href="lite1-antonio-machado/Poemarios.docx" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Poemarios.docx</a></li>
+    <li><a href="lite1-antonio-machado/POEMAS seleccionados Machado.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 POEMAS seleccionados Machado.pdf</a></li>
+    <li><a href="lite1-antonio-machado/POSIBLES PREGUNTAS DE LOS POEMAS DE MACHADO.docx" style="color: var(--text-color, #fff); text-decoration: underline;">📄 POSIBLES PREGUNTAS DE LOS POEMAS DE MACHADO.docx</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/1. Yo voy soñando caminos.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 1. Yo voy soñando caminos.pdf</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/10. El crimen fue en Granada.ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 10. El crimen fue en Granada.ppt</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/2. El mañana efímero.ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 2. El mañana efímero.ppt</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/3. Noche de verano.ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 3. Noche de verano.ppt</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/4. Un olmo seco.pptx" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 4. Un olmo seco.pptx</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/5. Soñé que tú me llevabas.ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 5. Soñé que tú me llevabas.ppt</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/6. Retrato (3).ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 6. Retrato (3).ppt</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/7. A orillas del Duero (5).ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 7. A orillas del Duero (5).ppt</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/8. UNA noche de verano.ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 8. UNA noche de verano.ppt</a></li>
+    <li><a href="lite1-antonio-machado/Presentaciones poemas/9. Proverbios y cantares.ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 9. Proverbios y cantares.ppt</a></li>
+    <li><a href="lite1-antonio-machado/XIX_XX_contexto.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 XIX_XX_contexto.pdf</a></li>
+</ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">03</span>
+            <div>
+              <h3>Lite 2 - La casa de Bernarda Alba</h3>
+              <p>Textos de la obra, presentaciones y contexto.</p>
+              <ul
+                id="lista-lite2-la-casa-de-bernarda-alba"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+    <li><a href="lite2-la-casa-de-bernarda-alba/00. OBRA fragmentos seleccionados.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 00. OBRA fragmentos seleccionados.pdf</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/00. Resumen La casa de Bernarda Alba.doc" style="color: var(--text-color, #fff); text-decoration: underline;">📄 00. Resumen La casa de Bernarda Alba.doc</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/03. Movimiento literario.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 03. Movimiento literario.pdf</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/3. Contexto._La casa de Bernarda Alba_.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 3. Contexto._La casa de Bernarda Alba_.pdf</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/77885401-469A-4D74-856D-51C6513767A1.jpeg" style="color: var(--text-color, #fff); text-decoration: underline;">🖼️ 77885401-469A-4D74-856D-51C6513767A1.jpeg</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/Contexto histórico y literario y teatro de Lorca.doc" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Contexto histórico y literario y teatro de Lorca.doc</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/Fragmentos Bernarda.docx" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Fragmentos Bernarda.docx</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/Lorca mapa.jpeg" style="color: var(--text-color, #fff); text-decoration: underline;">🖼️ Lorca mapa.jpeg</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/MOVIMIENTO LITERARIO GACÍA LORCA.docx" style="color: var(--text-color, #fff); text-decoration: underline;">📄 MOVIMIENTO LITERARIO GACÍA LORCA.docx</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/ppt obra características. la-casa-de-bernarda-alba.pptx" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ ppt obra características. la-casa-de-bernarda-alba.pptx</a></li>
+    <li><a href="lite2-la-casa-de-bernarda-alba/PREGUNTAS SOBRE EL DOCUMENTAL.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 PREGUNTAS SOBRE EL DOCUMENTAL.pdf</a></li>
+</ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">04</span>
+            <div>
+              <h3>Lite 3 - Nada (Carmen Laforet)</h3>
+              <p>Textos del libro y actividades.</p>
+              <ul
+                id="lista-lite3-nada-de-carmen-laforet"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+    <li><a href="lite3-nada-de-carmen-laforet/1. Movimiento literario_Carmen Laforet .pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 1. Movimiento literario_Carmen Laforet .pdf</a></li>
+    <li><a href="lite3-nada-de-carmen-laforet/3. Preguntas I-V_Guia de lectura.doc" style="color: var(--text-color, #fff); text-decoration: underline;">📄 3. Preguntas I-V_Guia de lectura.doc</a></li>
+    <li><a href="lite3-nada-de-carmen-laforet/3. Preguntas VI-X_Guia de lectura.doc" style="color: var(--text-color, #fff); text-decoration: underline;">📄 3. Preguntas VI-X_Guia de lectura.doc</a></li>
+    <li><a href="lite3-nada-de-carmen-laforet/3. Preguntas XI-XV_Guia de lectura.doc" style="color: var(--text-color, #fff); text-decoration: underline;">📄 3. Preguntas XI-XV_Guia de lectura.doc</a></li>
+    <li><a href="lite3-nada-de-carmen-laforet/Carmen Laforet bio y contexto hs .pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Carmen Laforet bio y contexto hs .pdf</a></li>
+    <li><a href="lite3-nada-de-carmen-laforet/Nada · Guía de lectura · Planeta lector.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Nada · Guía de lectura · Planeta lector.pdf</a></li>
+</ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">05</span>
+            <div>
+              <h3>Oración compuesta</h3>
+              <p>Teoría y ejercicios sobre oraciones compuestas.</p>
+              <ul
+                id="lista-oracion-compuesta"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+    <li><a href="oracion-compuesta/0. ESQUEMA ORACIÓN COMPUESTA_NGLE.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 0. ESQUEMA ORACIÓN COMPUESTA_NGLE.pdf</a></li>
+    <li><a href="oracion-compuesta/00. Ejerc. analisis oraciones.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 00. Ejerc. analisis oraciones.pdf</a></li>
+    <li><a href="oracion-compuesta/Actividades que.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Actividades que.pdf</a></li>
+    <li><a href="oracion-compuesta/ANÁLISIS DE ORACIONES COORDINADAS NGLE.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 ANÁLISIS DE ORACIONES COORDINADAS NGLE.pdf</a></li>
+    <li><a href="oracion-compuesta/CONSTRUCCIONES_.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 CONSTRUCCIONES_.pdf</a></li>
+    <li><a href="oracion-compuesta/ejercicios-resueltos-sintaxis-oraciones-compuestas.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 ejercicios-resueltos-sintaxis-oraciones-compuestas.pdf</a></li>
+    <li><a href="oracion-compuesta/Ejercicios_coordinadas.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Ejercicios_coordinadas.pdf</a></li>
+    <li><a href="oracion-compuesta/ESQUEMA ORACIÓN COMPUESTA_NGLE.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 ESQUEMA ORACIÓN COMPUESTA_NGLE.pdf</a></li>
+    <li><a href="oracion-compuesta/NGLE teoría, ejemplos y oraciones.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 NGLE teoría, ejemplos y oraciones.pdf</a></li>
+    <li><a href="oracion-compuesta/Oraciones compuestas.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Oraciones compuestas.pdf</a></li>
+    <li><a href="oracion-compuesta/Práctica_subordinadas de relativo.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Práctica_subordinadas de relativo.pdf</a></li>
+    <li><a href="oracion-compuesta/Subordinadas sustantivas.docx.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Subordinadas sustantivas.docx.pdf</a></li>
+    <li><a href="oracion-compuesta/subordinadas-sustantivas_ejercicios.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 subordinadas-sustantivas_ejercicios.pdf</a></li>
+</ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">06</span>
+            <div>
+              <h3>Redacción y comentario crítico</h3>
+              <p>Redacciones, criterios y ejemplos.</p>
+              <ul
+                id="lista-redaccion-y-comentario-critico"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+    <li><a href="redaccion-y-comentario-critico/01. Latinismos.doc" style="color: var(--text-color, #fff); text-decoration: underline;">📄 01. Latinismos.doc</a></li>
+    <li><a href="redaccion-y-comentario-critico/02. Pautas txt argumentativo.doc" style="color: var(--text-color, #fff); text-decoration: underline;">📄 02. Pautas txt argumentativo.doc</a></li>
+    <li><a href="redaccion-y-comentario-critico/05 - Tª - contraargumentación.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 05 - Tª - contraargumentación.pdf</a></li>
+    <li><a href="redaccion-y-comentario-critico/Comentarios críticos 2Bach.docx" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Comentarios críticos 2Bach.docx</a></li>
+    <li><a href="redaccion-y-comentario-critico/Pautas comentario crítico.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Pautas comentario crítico.pdf</a></li>
+    <li><a href="redaccion-y-comentario-critico/Rúbrica_comentario_crítico_.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Rúbrica_comentario_crítico_.pdf</a></li>
+</ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">07</span>
+            <div>
+              <h3>Tema y resumen</h3>
+              <p>Archivos y actividades para realizar resúmenes.</p>
+              <ul
+                id="lista-tema-y-resumen"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+    <li><a href="tema-y-resumen/00. Tema y resumen (10).ppt" style="color: var(--text-color, #fff); text-decoration: underline;">📽️ 00. Tema y resumen (10).ppt</a></li>
+    <li><a href="tema-y-resumen/Rúbrica_Resumen_batx.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Rúbrica_Resumen_batx.pdf</a></li>
+    <li><a href="tema-y-resumen/SINÓNIMOS Y DEFINICIONES.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 SINÓNIMOS Y DEFINICIONES.pdf</a></li>
+</ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="unidad-card">
+          <div class="unidad-info">
+            <span class="numero-unidad">08</span>
+            <div>
+              <h3>Textos</h3>
+              <p>Textos de lectura de las diferentes evaluaciones.</p>
+              <ul
+                id="lista-textos"
+                style="margin-top: 10px; list-style: none; padding: 0"
+              >
+    <li><a href="textos/eba1/batx 2 Textos 1ª Evaluación.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 batx 2 Textos 1ª Evaluación.pdf</a></li>
+    <li><a href="textos/eba2/Textos 2ª evaluación 25-26.docx.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Textos 2ª evaluación 25-26.docx.pdf</a></li>
+    <li><a href="textos/eba3/Textos 3ª Evaluación BATX2 25-26.pdf" style="color: var(--text-color, #fff); text-decoration: underline;">📄 Textos 3ª Evaluación BATX2 25-26.pdf</a></li>
+</ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
