@@ -2,12 +2,10 @@ const fs = require("fs");
 const path = require("path");
 
 // Configuración
-const HTML_FILE = "azterketak.html";
+const HTML_FILE = "index.html";
 const SECTIONS = {
-  "lista-eba1": "eba1", // 1. Ebaluaketa
-  "lista-eba2": "eba2", // 2. Ebaluaketa
-  "lista-eba3": "eba3", // 3. Ebaluaketa
-  "lista-ebau": "ebau"  // EBAU
+  "eba2": "eba2", // ID del <ul> : Nombre de la carpeta
+  "eba3": "eba3",
 };
 
 // Estilo para los enlaces (copiado de tu HTML original para mantener consistencia)
