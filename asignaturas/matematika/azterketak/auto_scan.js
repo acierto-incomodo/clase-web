@@ -7,7 +7,8 @@ const SECTIONS = {
   "lista-eba1": "eba1", // 1. Ebaluaketa
   "lista-eba2": "eba2", // 2. Ebaluaketa
   "lista-eba3": "eba3", // 3. Ebaluaketa
-  "lista-ebau": "ebau"  // EBAU
+  "lista-ebau": "ebau",  // EBAU
+  "lista-extra": "extra" // EXTRA
 };
 
 // Estilo para los enlaces (copiado de tu HTML original para mantener consistencia)
