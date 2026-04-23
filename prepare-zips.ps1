@@ -58,7 +58,8 @@ $akaDst = Join-Path $parte3 "akademia"
 if (Test-Path $akaSrc) {
     Write-Host "  - akademia" -ForegroundColor Green
     Copy-Item $akaSrc -Destination $akaDst -Recurse
-} else {
+}
+else {
     Write-Host "  - akademia (no existe, se omite)" -ForegroundColor Yellow
 }
 

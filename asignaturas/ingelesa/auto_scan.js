@@ -125,18 +125,18 @@ function updateHtml() {
     // Busca: <ul id="mi-id" ...> CONTENIDO </ul>
     const regex = new RegExp(
       `(<ul[^>]*id="${listId}"[^>]*>)[\\s\\S]*?(<\\/ul>)`,
-      "i"
+      "i",
     );
 
     if (regex.test(htmlContent)) {
       htmlContent = htmlContent.replace(regex, `$1\n${listHtml}$2`);
       changesMade = true;
       console.log(
-        `✅ Sección '${listId}' actualizada con ${files.length} archivos.`
+        `✅ Sección '${listId}' actualizada con ${files.length} archivos.`,
       );
     } else {
       console.warn(
-        `⚠️ No se encontró el elemento con id="${listId}" en el HTML.`
+        `⚠️ No se encontró el elemento con id="${listId}" en el HTML.`,
       );
     }
   }

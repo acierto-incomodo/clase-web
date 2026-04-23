@@ -1,6 +1,6 @@
-const { app, BrowserWindow, Notification, Menu, shell } = require('electron');
-const { autoUpdater } = require('electron-updater');
-const path = require('path');
+const { app, BrowserWindow, Notification, Menu, shell } = require("electron");
+const { autoUpdater } = require("electron-updater");
+const path = require("path");
 
 autoUpdater.allowDowngrade = true;
 
@@ -11,7 +11,7 @@ function createWindow() {
     width: 1200,
     height: 800,
     // Establece el icono de la ventana.
-    icon: path.join(__dirname, 'img/logo_2048x2048.png'),
+    icon: path.join(__dirname, "img/logo_2048x2048.png"),
     webPreferences: {
       // Security best practices
       nodeIntegration: false,
@@ -23,14 +23,16 @@ function createWindow() {
   mainWindow.maximize();
 
   // Cargar la página web directamente
-  mainWindow.loadURL('https://acierto-incomodo.github.io/clase-web/');
+  mainWindow.loadURL("https://acierto-incomodo.github.io/clase-web/");
 
   // Manejo de errores de carga
-  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
-    // Ignorar error de cancelación (ej. al recargar rápidamente o navegar antes de terminar)
-    if (errorCode === -3) return;
+  mainWindow.webContents.on(
+    "did-fail-load",
+    (event, errorCode, errorDescription, validatedURL) => {
+      // Ignorar error de cancelación (ej. al recargar rápidamente o navegar antes de terminar)
+      if (errorCode === -3) return;
 
-    const html = `
+      const html = `
       <html>
         <body style="background-color: #121212; color: #e0e0e0; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0;">
           <h2 style="color: #bb86fc;">¡Vaya! No se pudo cargar la página.</h2>
@@ -40,115 +42,126 @@ function createWindow() {
         </body>
       </html>
     `;
-    mainWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(html));
-  });
+      mainWindow.loadURL(
+        "data:text/html;charset=utf-8," + encodeURIComponent(html),
+      );
+    },
+  );
 
   // Crear el menú de la aplicación
   const template = [
     {
-      label: 'Menú',
+      label: "Menú",
       submenu: [
         {
-          label: 'Ir a la página principal',
+          label: "Ir a la página principal",
           click: () => {
-            mainWindow.loadURL('https://acierto-incomodo.github.io/clase-web/');
-          }
+            mainWindow.loadURL("https://acierto-incomodo.github.io/clase-web/");
+          },
         },
         {
-          label: 'Ir al repositorio',
+          label: "Ir al repositorio",
           click: async () => {
-            await shell.openExternal('https://github.com/acierto-incomodo/clase-web');
-          }
+            await shell.openExternal(
+              "https://github.com/acierto-incomodo/clase-web",
+            );
+          },
         },
-        { type: 'separator' },
+        { type: "separator" },
         {
-          label: 'Comprobar actualizaciones',
+          label: "Comprobar actualizaciones",
           click: () => {
             if (!app.isPackaged) {
               showUpdateNotification(
-                'Información',
-                'La búsqueda de actualizaciones solo funciona en la aplicación empaquetada.',
+                "Información",
+                "La búsqueda de actualizaciones solo funciona en la aplicación empaquetada.",
               );
               return;
             }
             autoUpdater.checkForUpdates();
-          }
+          },
         },
-        { type: 'separator' },
-        { role: 'quit', label: 'Salir' }
-      ]
+        { type: "separator" },
+        { role: "quit", label: "Salir" },
+      ],
     },
     {
-      label: 'Navegación',
+      label: "Navegación",
       submenu: [
         {
-          label: 'Atrás',
-          accelerator: 'Alt+Left',
+          label: "Atrás",
+          accelerator: "Alt+Left",
           click: () => {
             if (mainWindow.webContents.canGoBack())
               mainWindow.webContents.goBack();
-          }
+          },
         },
         {
-          label: 'Adelante',
-          accelerator: 'Alt+Right',
+          label: "Adelante",
+          accelerator: "Alt+Right",
           click: () => {
             if (mainWindow.webContents.canGoForward())
               mainWindow.webContents.goForward();
-          }
-        }
-      ]
+          },
+        },
+      ],
     },
     {
-      label: 'Edición',
+      label: "Edición",
       submenu: [
-        { role: 'undo', label: 'Deshacer' },
-        { role: 'redo', label: 'Rehacer' },
-        { type: 'separator' },
-        { role: 'cut', label: 'Cortar' },
-        { role: 'copy', label: 'Copiar' },
-        { role: 'paste', label: 'Pegar' },
-        { role: 'selectAll', label: 'Seleccionar todo' }
-      ]
+        { role: "undo", label: "Deshacer" },
+        { role: "redo", label: "Rehacer" },
+        { type: "separator" },
+        { role: "cut", label: "Cortar" },
+        { role: "copy", label: "Copiar" },
+        { role: "paste", label: "Pegar" },
+        { role: "selectAll", label: "Seleccionar todo" },
+      ],
     },
     {
-      label: 'Ver',
+      label: "Ver",
       submenu: [
-        { role: 'reload', label: 'Recargar' },
-        { role: 'forceReload', label: 'Forzar recarga' },
-        { role: 'toggleDevTools', label: 'Herramientas de desarrollo' },
-        { type: 'separator' },
-        { role: 'resetZoom', label: 'Tamaño real' },
-        { role: 'zoomIn', label: 'Acercar' },
-        { role: 'zoomOut', label: 'Alejar' },
-        { type: 'separator' },
-        { role: 'togglefullscreen', label: 'Pantalla completa' }
-      ]
-    }
+        { role: "reload", label: "Recargar" },
+        { role: "forceReload", label: "Forzar recarga" },
+        { role: "toggleDevTools", label: "Herramientas de desarrollo" },
+        { type: "separator" },
+        { role: "resetZoom", label: "Tamaño real" },
+        { role: "zoomIn", label: "Acercar" },
+        { role: "zoomOut", label: "Alejar" },
+        { type: "separator" },
+        { role: "togglefullscreen", label: "Pantalla completa" },
+      ],
+    },
   ];
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
   // Menú contextual (clic derecho)
-  mainWindow.webContents.on('context-menu', (e, params) => {
+  mainWindow.webContents.on("context-menu", (e, params) => {
     Menu.buildFromTemplate([
-      { role: 'cut', label: 'Cortar', visible: params.editFlags.canCut },
-      { role: 'copy', label: 'Copiar', visible: params.editFlags.canCopy },
-      { role: 'paste', label: 'Pegar', visible: params.editFlags.canPaste },
-      { type: 'separator', visible: params.editFlags.canCut || params.editFlags.canCopy || params.editFlags.canPaste },
-      { role: 'selectAll', label: 'Seleccionar todo' },
-      { type: 'separator' },
-      { role: 'reload', label: 'Recargar' }
+      { role: "cut", label: "Cortar", visible: params.editFlags.canCut },
+      { role: "copy", label: "Copiar", visible: params.editFlags.canCopy },
+      { role: "paste", label: "Pegar", visible: params.editFlags.canPaste },
+      {
+        type: "separator",
+        visible:
+          params.editFlags.canCut ||
+          params.editFlags.canCopy ||
+          params.editFlags.canPaste,
+      },
+      { role: "selectAll", label: "Seleccionar todo" },
+      { type: "separator" },
+      { role: "reload", label: "Recargar" },
     ]).popup(mainWindow);
   });
 
-  mainWindow.on('closed', () => {
+  mainWindow.on("closed", () => {
     mainWindow = null;
   });
 }
 
-app.on('ready', async () => {
+app.on("ready", async () => {
   createWindow();
 
   // Only check for updates when the app is packaged
@@ -157,15 +170,15 @@ app.on('ready', async () => {
   }
 });
 
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
@@ -183,29 +196,29 @@ function showUpdateNotification(title, body) {
 }
 
 // Cuando se encuentra una actualización, se muestra una notificación.
-autoUpdater.on('update-available', (info) => {
+autoUpdater.on("update-available", (info) => {
   showUpdateNotification(
-    'Actualización disponible',
-    `Descargando la versión ${info.version}...`
+    "Actualización disponible",
+    `Descargando la versión ${info.version}...`,
   );
 });
 
 // Muestra el progreso de la descarga en la barra de tareas
-autoUpdater.on('download-progress', (progressObj) => {
+autoUpdater.on("download-progress", (progressObj) => {
   if (mainWindow) {
     // El progreso es un valor de 0 a 1
     mainWindow.setProgressBar(progressObj.percent / 100);
   }
 });
 
-autoUpdater.on('update-downloaded', (info) => {
+autoUpdater.on("update-downloaded", (info) => {
   // La actualización está lista. Se quita la barra de progreso y se notifica al usuario.
   if (mainWindow) {
     mainWindow.setProgressBar(-1);
   }
   showUpdateNotification(
-    'Actualización lista',
-    'La aplicación se reiniciará en breve para instalar la nueva versión.'
+    "Actualización lista",
+    "La aplicación se reiniciará en breve para instalar la nueva versión.",
   );
   // Salir e instalar silenciosamente después de un breve retraso
   setTimeout(() => {
@@ -213,13 +226,19 @@ autoUpdater.on('update-downloaded', (info) => {
   }, 3000);
 });
 
-autoUpdater.on('error', (err) => {
+autoUpdater.on("error", (err) => {
   if (mainWindow) {
     mainWindow.setProgressBar(-1); // Limpiar la barra de progreso en caso de error
   }
-  showUpdateNotification('Error en la actualización', `Ocurrió un error: ${err.message}`);
+  showUpdateNotification(
+    "Error en la actualización",
+    `Ocurrió un error: ${err.message}`,
+  );
 });
 
-autoUpdater.on('update-not-available', (info) => {
-  showUpdateNotification('Sin actualizaciones', 'No hay nuevas actualizaciones disponibles.');
+autoUpdater.on("update-not-available", (info) => {
+  showUpdateNotification(
+    "Sin actualizaciones",
+    "No hay nuevas actualizaciones disponibles.",
+  );
 });

@@ -7,8 +7,8 @@ const SECTIONS = {
   "lista-eba1": "eba1", // 1. Ebaluaketa
   "lista-eba2": "eba2", // 2. Ebaluaketa
   "lista-eba3": "eba3", // 3. Ebaluaketa
-  "lista-ebau": "ebau",  // EBAU
-  "lista-extra": "extra" // EXTRA
+  "lista-ebau": "ebau", // EBAU
+  "lista-extra": "extra", // EXTRA
 };
 
 // Estilo para los enlaces (copiado de tu HTML original para mantener consistencia)
@@ -71,18 +71,18 @@ function updateHtml() {
     // Busca: <ul id="mi-id" ...> CONTENIDO </ul>
     const regex = new RegExp(
       `(<ul[^>]*id="${listId}"[^>]*>)[\\s\\S]*?(<\\/ul>)`,
-      "i"
+      "i",
     );
 
     if (regex.test(htmlContent)) {
       htmlContent = htmlContent.replace(regex, `$1\n${listHtml}$2`);
       changesMade = true;
       console.log(
-        `✅ Sección '${listId}' actualizada con ${pdfs.length} archivos.`
+        `✅ Sección '${listId}' actualizada con ${pdfs.length} archivos.`,
       );
     } else {
       console.warn(
-        `⚠️ No se encontró el elemento con id="${listId}" en el HTML.`
+        `⚠️ No se encontró el elemento con id="${listId}" en el HTML.`,
       );
     }
   }

@@ -1,10 +1,10 @@
-const { app, BrowserWindow, Notification, Menu, shell } = require('electron');
-const { autoUpdater } = require('electron-updater');
-const path = require('path');
-const fs = require('fs');
-const https = require('https');
-const extract = require('extract-zip');
-const { URL } = require('url');
+const { app, BrowserWindow, Notification, Menu, shell } = require("electron");
+const { autoUpdater } = require("electron-updater");
+const path = require("path");
+const fs = require("fs");
+const https = require("https");
+const extract = require("extract-zip");
+const { URL } = require("url");
 
 autoUpdater.allowDowngrade = true;
 
@@ -15,23 +15,23 @@ let offlineContentDir = null;
 
 function getContentBaseDir() {
   const version = app.getVersion();
-  return path.join(app.getPath('userData'), 'offline-content', version);
+  return path.join(app.getPath("userData"), "offline-content", version);
 }
 
 // TODO: sustituir estas URLs por las reales donde publiques parte1.zip y parte2.zip
 const CONTENT_PACKS = [
   {
-    name: 'parte1.zip',
-    url: 'https://github.com/acierto-incomodo/clase-web/releases/latest/download/parte1.zip',
+    name: "parte1.zip",
+    url: "https://github.com/acierto-incomodo/clase-web/releases/latest/download/parte1.zip",
   },
   {
-    name: 'parte2.zip',
-    url: 'https://github.com/acierto-incomodo/clase-web/releases/latest/download/parte2.zip',
+    name: "parte2.zip",
+    url: "https://github.com/acierto-incomodo/clase-web/releases/latest/download/parte2.zip",
   },
   {
-    name: 'parte3.zip',
-    url: 'https://github.com/acierto-incomodo/clase-web/releases/latest/download/parte3.zip',
-  }
+    name: "parte3.zip",
+    url: "https://github.com/acierto-incomodo/clase-web/releases/latest/download/parte3.zip",
+  },
 ];
 
 function downloadFile(url, destination, onProgress, redirectCount = 0) {
@@ -50,8 +50,8 @@ function downloadFile(url, destination, onProgress, redirectCount = 0) {
         hostname: requestUrl.hostname,
         path: requestUrl.pathname + requestUrl.search,
         headers: {
-          'User-Agent': 'Clase-Web',
-          Accept: '*/*',
+          "User-Agent": "Clase-Web",
+          Accept: "*/*",
         },
       },
       (response) => {
@@ -68,21 +68,30 @@ function downloadFile(url, destination, onProgress, redirectCount = 0) {
             } catch {
               // ignore
             }
-            const nextUrl = new URL(response.headers.location, requestUrl).toString();
-            resolve(downloadFile(nextUrl, destination, onProgress, redirectCount + 1));
+            const nextUrl = new URL(
+              response.headers.location,
+              requestUrl,
+            ).toString();
+            resolve(
+              downloadFile(nextUrl, destination, onProgress, redirectCount + 1),
+            );
           });
           return;
         }
 
         if (response.statusCode !== 200) {
-          reject(new Error(`Fallo al descargar ${url}: código ${response.statusCode}`));
+          reject(
+            new Error(
+              `Fallo al descargar ${url}: código ${response.statusCode}`,
+            ),
+          );
           return;
         }
 
-        const total = Number(response.headers['content-length'] || 0);
+        const total = Number(response.headers["content-length"] || 0);
         let received = 0;
 
-        response.on('data', (chunk) => {
+        response.on("data", (chunk) => {
           received += chunk.length;
           if (onProgress && total > 0) {
             onProgress(received / total);
@@ -92,13 +101,13 @@ function downloadFile(url, destination, onProgress, redirectCount = 0) {
         });
 
         response.pipe(file);
-        file.on('finish', () => {
+        file.on("finish", () => {
           file.close(() => resolve());
         });
       },
     );
 
-    req.on('error', (err) => {
+    req.on("error", (err) => {
       fs.unlink(destination, () => reject(err));
     });
   });
@@ -106,7 +115,7 @@ function downloadFile(url, destination, onProgress, redirectCount = 0) {
 
 async function ensureOfflineContent(onOverallProgress) {
   const contentDir = getContentBaseDir();
-  const asignaturasDir = path.join(contentDir, 'asignaturas');
+  const asignaturasDir = path.join(contentDir, "asignaturas");
 
   // Si ya existe la carpeta asignaturas para esta versión, no hacemos nada
   if (fs.existsSync(asignaturasDir)) {
@@ -149,14 +158,14 @@ async function ensureOfflineContent(onOverallProgress) {
 
   // Copiar offline-index.html y style.css al directorio de contenido
   const appDir = __dirname;
-  const offlineIndexSrc = path.join(appDir, 'offline-index.html');
-  const offlineIndexDest = path.join(contentDir, 'offline-index.html');
+  const offlineIndexSrc = path.join(appDir, "offline-index.html");
+  const offlineIndexDest = path.join(contentDir, "offline-index.html");
   if (fs.existsSync(offlineIndexSrc)) {
     fs.copyFileSync(offlineIndexSrc, offlineIndexDest);
   }
 
-  const styleSrc = path.join(appDir, 'style.css');
-  const styleDest = path.join(contentDir, 'style.css');
+  const styleSrc = path.join(appDir, "style.css");
+  const styleDest = path.join(contentDir, "style.css");
   if (fs.existsSync(styleSrc)) {
     fs.copyFileSync(styleSrc, styleDest);
   }
@@ -173,7 +182,7 @@ function createWindow(contentDir) {
     width: 1200,
     height: 800,
     // Establece el icono de la ventana.
-    icon: path.join(__dirname, 'img/logo_2048x2048.png'),
+    icon: path.join(__dirname, "img/logo_2048x2048.png"),
     webPreferences: {
       // Security best practices
       nodeIntegration: false,
@@ -190,27 +199,35 @@ function createWindow(contentDir) {
   // - En desarrollo: usar el index.html original del proyecto
   const effectiveContentDir = contentDir || offlineContentDir;
   if (app.isPackaged && effectiveContentDir) {
-    const offlineIndexPath = path.join(effectiveContentDir, 'offline-index.html');
+    const offlineIndexPath = path.join(
+      effectiveContentDir,
+      "offline-index.html",
+    );
     mainWindow.loadFile(offlineIndexPath);
   } else if (app.isPackaged && !effectiveContentDir) {
-    mainWindow.loadFile('offline-loading.html');
+    mainWindow.loadFile("offline-loading.html");
   } else {
-    mainWindow.loadFile('index.html');
+    mainWindow.loadFile("index.html");
   }
 
   // Manejo de errores de carga
-  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
-    // Ignorar error de cancelación (ej. al recargar rápidamente o navegar antes de terminar)
-    if (errorCode === -3) return;
+  mainWindow.webContents.on(
+    "did-fail-load",
+    (event, errorCode, errorDescription, validatedURL) => {
+      // Ignorar error de cancelación (ej. al recargar rápidamente o navegar antes de terminar)
+      if (errorCode === -3) return;
 
-    // Si tenemos contenido offline preparado, volver siempre al inicio offline
-    if (offlineContentDir) {
-      const offlineIndexPath = path.join(offlineContentDir, 'offline-index.html');
-      mainWindow.loadFile(offlineIndexPath);
-      return;
-    }
+      // Si tenemos contenido offline preparado, volver siempre al inicio offline
+      if (offlineContentDir) {
+        const offlineIndexPath = path.join(
+          offlineContentDir,
+          "offline-index.html",
+        );
+        mainWindow.loadFile(offlineIndexPath);
+        return;
+      }
 
-    const html = `
+      const html = `
       <html>
         <body style="background-color: #121212; color: #e0e0e0; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0;">
           <h2 style="color: #bb86fc;">¡Vaya! No se pudo cargar la página.</h2>
@@ -220,137 +237,151 @@ function createWindow(contentDir) {
         </body>
       </html>
     `;
-    mainWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(html));
-  });
+      mainWindow.loadURL(
+        "data:text/html;charset=utf-8," + encodeURIComponent(html),
+      );
+    },
+  );
 
   // Crear el menú de la aplicación
   const template = [
     {
-      label: 'Menú',
+      label: "Menú",
       submenu: [
         {
-          label: 'Ir a la página principal',
+          label: "Ir a la página principal",
           click: () => {
             // Abrir la versión web en el navegador por defecto
-            shell.openExternal('https://acierto-incomodo.github.io/clase-web/');
-          }
+            shell.openExternal("https://acierto-incomodo.github.io/clase-web/");
+          },
         },
         {
-          label: 'Ir al modo offline',
+          label: "Ir al modo offline",
           click: () => {
             if (!app.isPackaged) {
               showUpdateNotification(
-                'Modo offline',
-                'El modo offline solo está disponible en la aplicación empaquetada.',
+                "Modo offline",
+                "El modo offline solo está disponible en la aplicación empaquetada.",
               );
               return;
             }
             if (!offlineContentDir) {
               showUpdateNotification(
-                'Modo offline',
-                'El contenido offline todavía no está preparado. Espera unos instantes.',
+                "Modo offline",
+                "El contenido offline todavía no está preparado. Espera unos instantes.",
               );
               return;
             }
-            const offlineIndexPath = path.join(offlineContentDir, 'offline-index.html');
+            const offlineIndexPath = path.join(
+              offlineContentDir,
+              "offline-index.html",
+            );
             mainWindow.loadFile(offlineIndexPath);
-          }
+          },
         },
         {
-          label: 'Ir al repositorio',
+          label: "Ir al repositorio",
           click: async () => {
-            await shell.openExternal('https://github.com/acierto-incomodo/clase-web');
-          }
+            await shell.openExternal(
+              "https://github.com/acierto-incomodo/clase-web",
+            );
+          },
         },
-        { type: 'separator' },
+        { type: "separator" },
         {
-          label: 'Comprobar actualizaciones',
+          label: "Comprobar actualizaciones",
           click: () => {
             if (!app.isPackaged) {
               showUpdateNotification(
-                'Información',
-                'La búsqueda de actualizaciones solo funciona en la aplicación empaquetada.',
+                "Información",
+                "La búsqueda de actualizaciones solo funciona en la aplicación empaquetada.",
               );
               return;
             }
             autoUpdater.checkForUpdates();
-          }
+          },
         },
-        { type: 'separator' },
-        { role: 'quit', label: 'Salir' }
-      ]
+        { type: "separator" },
+        { role: "quit", label: "Salir" },
+      ],
     },
     {
-      label: 'Navegación',
+      label: "Navegación",
       submenu: [
         {
-          label: 'Atrás',
-          accelerator: 'Alt+Left',
+          label: "Atrás",
+          accelerator: "Alt+Left",
           click: () => {
             if (mainWindow.webContents.canGoBack())
               mainWindow.webContents.goBack();
-          }
+          },
         },
         {
-          label: 'Adelante',
-          accelerator: 'Alt+Right',
+          label: "Adelante",
+          accelerator: "Alt+Right",
           click: () => {
             if (mainWindow.webContents.canGoForward())
               mainWindow.webContents.goForward();
-          }
-        }
-      ]
+          },
+        },
+      ],
     },
     {
-      label: 'Edición',
+      label: "Edición",
       submenu: [
-        { role: 'undo', label: 'Deshacer' },
-        { role: 'redo', label: 'Rehacer' },
-        { type: 'separator' },
-        { role: 'cut', label: 'Cortar' },
-        { role: 'copy', label: 'Copiar' },
-        { role: 'paste', label: 'Pegar' },
-        { role: 'selectAll', label: 'Seleccionar todo' }
-      ]
+        { role: "undo", label: "Deshacer" },
+        { role: "redo", label: "Rehacer" },
+        { type: "separator" },
+        { role: "cut", label: "Cortar" },
+        { role: "copy", label: "Copiar" },
+        { role: "paste", label: "Pegar" },
+        { role: "selectAll", label: "Seleccionar todo" },
+      ],
     },
     {
-      label: 'Ver',
+      label: "Ver",
       submenu: [
-        { role: 'reload', label: 'Recargar' },
-        { role: 'forceReload', label: 'Forzar recarga' },
-        { role: 'toggleDevTools', label: 'Herramientas de desarrollo' },
-        { type: 'separator' },
-        { role: 'resetZoom', label: 'Tamaño real' },
-        { role: 'zoomIn', label: 'Acercar' },
-        { role: 'zoomOut', label: 'Alejar' },
-        { type: 'separator' },
-        { role: 'togglefullscreen', label: 'Pantalla completa' }
-      ]
-    }
+        { role: "reload", label: "Recargar" },
+        { role: "forceReload", label: "Forzar recarga" },
+        { role: "toggleDevTools", label: "Herramientas de desarrollo" },
+        { type: "separator" },
+        { role: "resetZoom", label: "Tamaño real" },
+        { role: "zoomIn", label: "Acercar" },
+        { role: "zoomOut", label: "Alejar" },
+        { type: "separator" },
+        { role: "togglefullscreen", label: "Pantalla completa" },
+      ],
+    },
   ];
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
   // Menú contextual (clic derecho)
-  mainWindow.webContents.on('context-menu', (e, params) => {
+  mainWindow.webContents.on("context-menu", (e, params) => {
     Menu.buildFromTemplate([
-      { role: 'cut', label: 'Cortar', visible: params.editFlags.canCut },
-      { role: 'copy', label: 'Copiar', visible: params.editFlags.canCopy },
-      { role: 'paste', label: 'Pegar', visible: params.editFlags.canPaste },
-      { type: 'separator', visible: params.editFlags.canCut || params.editFlags.canCopy || params.editFlags.canPaste },
-      { role: 'selectAll', label: 'Seleccionar todo' },
-      { type: 'separator' },
-      { role: 'reload', label: 'Recargar' }
+      { role: "cut", label: "Cortar", visible: params.editFlags.canCut },
+      { role: "copy", label: "Copiar", visible: params.editFlags.canCopy },
+      { role: "paste", label: "Pegar", visible: params.editFlags.canPaste },
+      {
+        type: "separator",
+        visible:
+          params.editFlags.canCut ||
+          params.editFlags.canCopy ||
+          params.editFlags.canPaste,
+      },
+      { role: "selectAll", label: "Seleccionar todo" },
+      { type: "separator" },
+      { role: "reload", label: "Recargar" },
     ]).popup(mainWindow);
   });
 
-  mainWindow.on('closed', () => {
+  mainWindow.on("closed", () => {
     mainWindow = null;
   });
 }
 
-app.on('ready', async () => {
+app.on("ready", async () => {
   // Crear la ventana cuanto antes (muestra pantalla de carga en empaquetado)
   createWindow(null);
 
@@ -366,21 +397,20 @@ app.on('ready', async () => {
           mainWindow.setProgressBar(2);
           return;
         }
-        if (typeof p === 'number') {
+        if (typeof p === "number") {
           mainWindow.setProgressBar(Math.max(0, Math.min(1, p)));
         }
       });
     }
   } catch (err) {
-    console.error('Error preparando el contenido offline:', err);
+    console.error("Error preparando el contenido offline:", err);
     if (mainWindow) {
       mainWindow.setProgressBar(-1);
     }
     if (Notification.isSupported()) {
       new Notification({
-        title: 'Error contenido offline',
-        body:
-          'No se pudo preparar el contenido offline. Revisa tu conexión o vuelve a intentarlo más tarde.',
+        title: "Error contenido offline",
+        body: "No se pudo preparar el contenido offline. Revisa tu conexión o vuelve a intentarlo más tarde.",
       }).show();
     }
   }
@@ -389,7 +419,7 @@ app.on('ready', async () => {
   if (app.isPackaged && contentDir && mainWindow) {
     offlineContentDir = contentDir;
     mainWindow.setProgressBar(-1);
-    const offlineIndexPath = path.join(contentDir, 'offline-index.html');
+    const offlineIndexPath = path.join(contentDir, "offline-index.html");
     mainWindow.loadFile(offlineIndexPath);
   }
 
@@ -400,15 +430,15 @@ app.on('ready', async () => {
   }
 });
 
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
@@ -426,29 +456,29 @@ function showUpdateNotification(title, body) {
 }
 
 // Cuando se encuentra una actualización, se muestra una notificación.
-autoUpdater.on('update-available', (info) => {
+autoUpdater.on("update-available", (info) => {
   showUpdateNotification(
-    'Actualización disponible',
-    `Descargando la versión ${info.version}...`
+    "Actualización disponible",
+    `Descargando la versión ${info.version}...`,
   );
 });
 
 // Muestra el progreso de la descarga en la barra de tareas
-autoUpdater.on('download-progress', (progressObj) => {
+autoUpdater.on("download-progress", (progressObj) => {
   if (mainWindow) {
     // El progreso es un valor de 0 a 1
     mainWindow.setProgressBar(progressObj.percent / 100);
   }
 });
 
-autoUpdater.on('update-downloaded', (info) => {
+autoUpdater.on("update-downloaded", (info) => {
   // La actualización está lista. Se quita la barra de progreso y se notifica al usuario.
   if (mainWindow) {
     mainWindow.setProgressBar(-1);
   }
   showUpdateNotification(
-    'Actualización lista',
-    'La aplicación se reiniciará en breve para instalar la nueva versión.'
+    "Actualización lista",
+    "La aplicación se reiniciará en breve para instalar la nueva versión.",
   );
   // Salir e instalar silenciosamente después de un breve retraso
   setTimeout(() => {
@@ -456,13 +486,19 @@ autoUpdater.on('update-downloaded', (info) => {
   }, 3000);
 });
 
-autoUpdater.on('error', (err) => {
+autoUpdater.on("error", (err) => {
   if (mainWindow) {
     mainWindow.setProgressBar(-1); // Limpiar la barra de progreso en caso de error
   }
-  showUpdateNotification('Error en la actualización', `Ocurrió un error: ${err.message}`);
+  showUpdateNotification(
+    "Error en la actualización",
+    `Ocurrió un error: ${err.message}`,
+  );
 });
 
-autoUpdater.on('update-not-available', (info) => {
-  showUpdateNotification('Sin actualizaciones', 'No hay nuevas actualizaciones disponibles.');
+autoUpdater.on("update-not-available", (info) => {
+  showUpdateNotification(
+    "Sin actualizaciones",
+    "No hay nuevas actualizaciones disponibles.",
+  );
 });
