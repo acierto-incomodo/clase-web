@@ -1,0 +1,126 @@
+package com.stormgamesstudios.claseweb
+
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Bundle
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
+import com.stormgamesstudios.claseweb.ui.theme.ClaseWEBTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            ClaseWEBTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    WebViewScreen(
+                        url = "https://acierto-incomodo.github.io/clase-web/",
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@SuppressLint("SetJavaScriptEnabled")
+@Composable
+fun WebViewScreen(url: String, modifier: Modifier = Modifier) {
+    var webView: WebView? by remember { mutableStateOf(null) }
+    var canGoBack by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = canGoBack) {
+        webView?.goBack()
+    }
+
+    AndroidView(
+        modifier = modifier.fillMaxSize(),
+        factory = { context ->
+            WebView(context).apply {
+                webView = this
+                settings.apply {
+                    javaScriptEnabled = true
+                    domStorageEnabled = true
+                    allowContentAccess = true
+                    allowFileAccess = true
+                    mediaPlaybackRequiresUserGesture = false
+                    useWideViewPort = true
+                    loadWithOverviewMode = true
+                }
+                
+                webChromeClient = WebChromeClient()
+                
+                webViewClient = object : WebViewClient() {
+                    override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                        super.onPageStarted(view, url, favicon)
+                        canGoBack = view?.canGoBack() ?: false
+                    }
+
+                    override fun onPageFinished(view: WebView?, url: String?) {
+                        super.onPageFinished(view, url)
+                        canGoBack = view?.canGoBack() ?: false
+                    }
+
+                    override fun onReceivedError(
+                        view: WebView?,
+                        request: WebResourceRequest?,
+                        error: WebResourceError?
+                    ) {
+                        // Si falla la carga de la página principal, mostramos el error local
+                        if (request?.isForMainFrame == true) {
+                            view?.loadUrl("file:///android_asset/error.html")
+                        }
+                    }
+
+                    override fun shouldOverrideUrlLoading(
+                        view: WebView?,
+                        request: WebResourceRequest?
+                    ): Boolean {
+                        val url = request?.url?.toString() ?: return false
+                        
+                        // Si es un PDF o archivo multimedia, podemos intentar manejarlo
+                        if (url.endsWith(".pdf") || url.endsWith(".mp4") || 
+                            url.endsWith(".m4a") || url.endsWith(".mp3")) {
+                            
+                            // Para PDFs, a menudo es mejor abrirlos en el navegador externo 
+                            // o un visor, ya que WebView no los renderiza nativamente bien.
+                            try {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                context.startActivity(intent)
+                                return true
+                            } catch (e: Exception) {
+                                // Si falla, dejamos que el WebView intente manejarlo
+                                return false
+                            }
+                        }
+                        return false
+                    }
+                }
+                loadUrl(url)
+            }
+        },
+        update = { webView ->
+            // Si necesitas actualizar el WebView cuando cambie el estado de Compose
+        }
+    )
+}
