@@ -18,6 +18,7 @@
             android:exported="true"
             android:label="@string/app_name"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:hardwareAccelerated="true"
             android:theme="@style/Theme.ClaseWEB">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

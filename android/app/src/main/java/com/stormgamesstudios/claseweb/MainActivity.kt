@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
@@ -57,6 +59,10 @@ fun WebViewScreen(url: String, modifier: Modifier = Modifier) {
         factory = { context ->
             WebView(context).apply {
                 webView = this
+                
+                // Habilitar aceleración de hardware a nivel de vista
+                setLayerType(View.LAYER_TYPE_HARDWARE, null)
+
                 settings.apply {
                     javaScriptEnabled = true
                     domStorageEnabled = true
@@ -67,9 +73,28 @@ fun WebViewScreen(url: String, modifier: Modifier = Modifier) {
                     javaScriptCanOpenWindowsAutomatically = true
                     useWideViewPort = true
                     loadWithOverviewMode = true
+                    
+                    // Forzar User Agent de Chrome Móvil para que el servidor envíe el reproductor correcto
+                    userAgentString = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36"
+                    
+                    // Configuraciones adicionales para imitar un navegador completo
+                    mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+                    cacheMode = WebSettings.LOAD_DEFAULT
+                    setSupportZoom(true)
+                    builtInZoomControls = true
+                    displayZoomControls = false
                 }
                 
-                webChromeClient = WebChromeClient()
+                webChromeClient = object : WebChromeClient() {
+                    // Soporte para video a pantalla completa
+                    override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+                        super.onShowCustomView(view, callback)
+                    }
+
+                    override fun onHideCustomView() {
+                        super.onHideCustomView()
+                    }
+                }
                 
                 webViewClient = object : WebViewClient() {
                     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
@@ -105,9 +130,15 @@ fun WebViewScreen(url: String, modifier: Modifier = Modifier) {
                             view?.loadUrl(googleDocsUrl)
                             return true
                         }
+
+                        // Si es un archivo de video o audio directo, forzamos que se cargue
+                        // para que el motor de la WebView use su reproductor interno.
+                        if (url.endsWith(".mp4", ignoreCase = true) || 
+                            url.endsWith(".m4a", ignoreCase = true) ||
+                            url.endsWith(".mp3", ignoreCase = true)) {
+                            return false // Dejamos que el WebView lo maneje nativamente
+                        }
                         
-                        // Los archivos mp4 y m4a se intentarán reproducir directamente en el WebView
-                        // No interceptamos para dejar que el navegador interno los maneje
                         return false
                     }
                 }
