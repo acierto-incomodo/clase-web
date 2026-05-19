@@ -1,7 +1,6 @@
 package com.stormgamesstudios.claseweb
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -64,6 +63,8 @@ fun WebViewScreen(url: String, modifier: Modifier = Modifier) {
                     allowContentAccess = true
                     allowFileAccess = true
                     mediaPlaybackRequiresUserGesture = false
+                    setSupportMultipleWindows(false)
+                    javaScriptCanOpenWindowsAutomatically = true
                     useWideViewPort = true
                     loadWithOverviewMode = true
                 }
@@ -98,21 +99,15 @@ fun WebViewScreen(url: String, modifier: Modifier = Modifier) {
                     ): Boolean {
                         val url = request?.url?.toString() ?: return false
                         
-                        // Si es un PDF o archivo multimedia, podemos intentar manejarlo
-                        if (url.endsWith(".pdf") || url.endsWith(".mp4") || 
-                            url.endsWith(".m4a") || url.endsWith(".mp3")) {
-                            
-                            // Para PDFs, a menudo es mejor abrirlos en el navegador externo 
-                            // o un visor, ya que WebView no los renderiza nativamente bien.
-                            try {
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                                context.startActivity(intent)
-                                return true
-                            } catch (e: Exception) {
-                                // Si falla, dejamos que el WebView intente manejarlo
-                                return false
-                            }
+                        // Integrar visor de PDF dentro de la app usando Google Docs Viewer
+                        if (url.endsWith(".pdf", ignoreCase = true) && !url.contains("docs.google.com")) {
+                            val googleDocsUrl = "https://docs.google.com/gview?embedded=true&url=$url"
+                            view?.loadUrl(googleDocsUrl)
+                            return true
                         }
+                        
+                        // Los archivos mp4 y m4a se intentarán reproducir directamente en el WebView
+                        // No interceptamos para dejar que el navegador interno los maneje
                         return false
                     }
                 }
