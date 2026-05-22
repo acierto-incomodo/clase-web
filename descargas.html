@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Descargas - Clase WEB</title>
+    <link rel="icon" href="img/clase-web.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        min-height: 100vh;
+      }
+      h1 {
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        color: var(--secondary-text);
+        text-align: center;
+        max-width: 600px;
+        margin-bottom: 40px;
+      }
+      .download-card {
+        text-align: center;
+        cursor: default !important;
+        padding: 30px !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        border: 1px solid #444;
+      }
+      .btn-download {
+        display: block;
+        margin: 10px 0;
+        padding: 12px;
+        background-color: #bb86fc;
+        color: #121212;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: opacity 0.2s;
+      }
+      .btn-download:hover {
+        opacity: 0.9;
+      }
+      .dashboard {
+        gap: 40px; /* Espacio extra entre tarjetas */
+        justify-content: center;
+        width: 100%;
+        max-width: 1100px;
+      }
+      .platform-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+      }
+      .back-link {
+        margin-top: 40px;
+        color: #bb86fc;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+      @media (max-width: 768px) {
+        .dashboard {
+          grid-template-columns: 1fr; /* Una sola columna en móviles */
+          max-width: 400px; /* Centrado y no demasiado ancho */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Descargas Oficiales</h1>
+    <p class="subtitle">
+      Selecciona tu sistema operativo para obtener la versión más reciente de la
+      plataforma educativa.
+    </p>
+
+    <div class="dashboard">
+      <div class="course-card download-card">
+        <div class="platform-icon">🤖</div>
+        <h3>Android (7+)</h3>
+        <p>Requiere una instalación especial a través de una aplicación externa.</p>
+        <a href="android.html" class="btn-download">Ver instrucciones</a>
+      </div>
+
+      <div class="course-card download-card">
+        <div class="platform-icon">🪟</div>
+        <h3>Windows</h3>
+        <p>Instalador ejecutable para sistemas Windows (.exe).</p>
+        <a href="https://github.com/acierto-incomodo/clase-web/releases/latest/download/Clase-Web-Setup.exe" class="btn-download"
+          >Descargar .exe</a
+        >
+      </div>
+
+      <div class="course-card download-card">
+        <div class="platform-icon">🐧</div>
+        <h3>Linux</h3>
+        <p>Disponible en formatos universales.</p>
+        <a href="https://github.com/acierto-incomodo/clase-web/releases/latest/download/Clase-Web-Setup.AppImage" class="btn-download">Descargar .AppImage</a>
+        <a href="https://github.com/acierto-incomodo/clase-web/releases/latest/download/Clase-Web-Setup.deb" class="btn-download">Descargar .deb</a>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-link">← Volver al inicio</a>
+  </body>
+</html>

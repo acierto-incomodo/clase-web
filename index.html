@@ -4,10 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clase WEB</title>
+    <link rel="icon" href="img/clase-web.png" type="image/png" />
     <link rel="stylesheet" href="style.css" />
+    <style>
+      .download-app-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #bb86fc;
+        color: #121212;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 1000;
+        transition: background-color 0.2s, transform 0.2s;
+      }
+      .download-app-btn:hover {
+        background-color: #a370f7;
+        transform: scale(1.05);
+      }
+      @media (max-width: 768px) {
+        .download-app-btn {
+          position: relative;
+          top: 0;
+          right: 0;
+          margin: 10px auto;
+          display: inline-flex;
+          justify-content: center;
+        }
+      }
+    </style>
   </head>
 
   <body>
+    <a href="descargas.html" class="download-app-btn">
+      <span>📥</span> descargar app oficial
+    </a>
+
     <h1>Ikasturtea 2025/2026</h1>
 
     <div class="dashboard">
